@@ -1,71 +1,80 @@
-# AI 管理本地文件知识库
+# AI Local File Knowledge Base
 
-一个面向 Codex 的本地文件知识库 Skill。它帮助用户在自己指定的文件夹中盘点、分类和检索资料，并维护本地 SQLite 清单、AI 导航文件和人类可读的 HTML 快照。
+Create, organize, maintain, and search a personal local file knowledge base. The Skill classifies, tags, renames, and moves files when the user has clearly requested those actions; it supports incremental refresh, traceable source citations, duplicate detection, lifecycle metadata, and AI retrieval.
 
-English: A Codex skill for organizing, maintaining, and searching personal local file libraries. It uses local scripts and does not depend on Jevbox or MCP.
+![Workflow overview](docs/images/workflow-overview.svg)
 
-> 当前仓库用于私有预发布。独立发布许可尚未在此仓库声明；公开前请确认发布权限并补充适用的 `LICENSE`。
+## Choose a package
 
-## 能做什么
+- **English package for installation:** [github-en/](github-en/)
+- **Original Chinese package:** the repository root, containing SKILL.md, agents/, assets/, references/, and scripts/.
 
-- 按用户指定的目录、场景和权限范围建立或维护本地文件知识库。
-- 盘点文件与精确重复，记录内容哈希、读取覆盖、分类状态和来源定位。
-- 使用场景化分类、受控词表与多维标签整理资料，并保留待确认项。
-- 生成 `.filedb/catalog.sqlite`、`AI_README.md`、`AI_INDEX.md`、目录导航和离线 HTML 页面。
-- 通过关键词、元数据筛选和分页定位候选资料；回答时要求回到当前原文件核对并标明来源。
-- 根据实际变化增量更新索引；支持文件生命周期记录和可恢复的改名/移动操作。
+Install only one package as a Skill. Do not copy the entire repository into a Skills directory because it contains two SKILL.md files.
 
-## 安全边界
+## Install the English package in Codex
 
-- 操作前先确认目标目录、任务模式、内容读取范围和本轮允许的写入/文件操作。
-- 只建库或查询不会自动扩大为原文件改名、移动或删除。
-- 精确重复项可移入库内隔离区并记录原路径；不自动永久删除。删除必须取得针对具体目标的明确同意。
-- 目录改名/移动先生成并校验计划；证据不足时保留原位置并标记待确认。
-- 本地读取不等于允许把资料发送给外部模型或服务；具体内容处理范围取决于用户授权和当前 Agent 环境。
+Requirements: Codex Skills support and Python 3.10+ for the included local scripts. The package does not require Jevbox, MCP, a cloud API, or a network connection to manage a local library.
 
-## 环境要求
+### Windows PowerShell
 
-- Codex 或兼容 Agent：能读取用户指定的本地目录，并在用户授权后执行本地脚本/写入索引。
-- 使用内置脚本需要 Python 3.10 或更高版本及 SQLite FTS5 支持。PDF 文本提取需要当前环境已安装 `pypdf`；其他格式能力和限制见 [`references/contracts.md`](references/contracts.md) 与 [`references/capabilities.md`](references/capabilities.md)。
-- 不需要 Jevbox、MCP 服务或本 Skill 自带的模型/API 密钥。Skill 不安装第三方依赖；可选解析器应由用户按需配置。
+From a checkout of this repository, copy the English bundle contents into a Skill folder:
 
-## 安装到 Codex（Windows）
+~~~powershell
+$skillPath = Join-Path $env:USERPROFILE ".codex/skills/folder-knowledge-base"
+New-Item -ItemType Directory -Path $skillPath -Force | Out-Null
+Copy-Item -Path ".\github-en\*" -Destination $skillPath -Recurse -Force
+~~~
 
-仓库公开后，在 PowerShell 中运行：
+Restart or refresh Codex Skills if the new Skill does not appear. If your Codex installation uses a custom skills directory, copy the bundle there instead.
 
-```powershell
-$codexHome = if ($env:CODEX_HOME) { $env:CODEX_HOME } else { Join-Path $env:USERPROFILE ".codex" }
-$skillPath = Join-Path $codexHome "skills\folder-knowledge-base"
-git clone "https://github.com/felixwonggogogo/folder-knowledge-base-management-Skill.git" $skillPath
-```
+### macOS / Linux
 
-如果你已经安装过此 Skill，请先备份本地修改，再按版本更新；不要对已有目录重复 `git clone`。安装后开始一个新 Codex 对话；若 Skill 未出现，再重启 Codex。
+From a checkout of this repository:
 
-## 使用
+~~~sh
+mkdir -p "$HOME/.codex/skills/folder-knowledge-base"
+cp -R github-en/. "$HOME/.codex/skills/folder-knowledge-base/"
+~~~
 
-可在 Codex 中明确调用 `$folder-knowledge-base`，并说明目标目录与需求，例如：
+Use the Skills directory configured by your Codex installation if it differs from the default.
 
-```text
-使用 $folder-knowledge-base 查询 D:\资料库 中关于项目预算的文件；先检查索引状态，回答时给出文件路径和原文位置。
-```
+## Safe first use
 
-新建知识库时，Skill 会先澄清目录、场景、读取范围和允许的副作用。首次能力检查示例：
+Tell the Skill the exact local folder, the task (create, search, maintain, propose, or organize), what content it may read, and whether it may only write indexes or also rename/move files. The Skill asks before acting when a decision that affects scope or authorization is missing.
 
-```powershell
-python "$skillPath\scripts\folderdb.py" preflight --root "D:\资料库"
-```
+Permanent deletion always requires explicit consent for the specific target and action. Exact duplicates can be moved to a recoverable quarantine folder when the user explicitly requests deduplication. The Skill does not connect to another service or send content elsewhere by itself.
 
-完整命令和工作流程见 [`SKILL.md`](SKILL.md)、[`references/workflows.md`](references/workflows.md) 和 [`references/navigation.md`](references/navigation.md)。
+## What it creates
 
-## 检索能力与限制
+A managed library has a root AI_INDEX.md for navigation, AI_README.md with retrieval instructions, an offline human-browsing HTML snapshot, and .filedb/catalog.sqlite for structured metadata. The portal is named `file-knowledge-base.html`; its interface defaults to English and can switch to Chinese. User-provided names, tags, and source content remain in their original language. Search results should be verified against the current original file and cited with its path and, when available, page/line/section/time location.
 
-- 当前本地脚本以字面词项/FTS、词表别名和元数据筛选为主；不应把它描述成通用向量语义搜索。
-- HTML 页面是生成时的静态快照，不会自行监听磁盘变化，也不包含未导出的全文。
-- 读取、OCR、格式解析和回答能力受当前 Agent、系统工具及已安装解析器限制；扫描过不代表全文已理解。
-- 没有常驻 watcher 时，文件改动通常在下一次状态检查或维护调用时发现。维护细节见 [`references/synchronization.md`](references/synchronization.md)。
+The included scripts provide inventory, hashing, parsing where supported, duplicate comparison, incremental refresh, SQLite-backed search, planning, and recoverable file operations. Model-dependent semantic classification is performed by the agent; a watcher or script alone cannot provide it.
 
-## 版本与方法来源
+## Repository layout
 
-- 当前 Skill 版本：**0.7.0**（与 `SKILL.md` frontmatter 一致）。
-- 分类、元数据、来源追溯、完整性与生命周期设计的来源和适用边界见 [`references/methodology.md`](references/methodology.md)。
-- 更新记录见 [`CHANGELOG.md`](CHANGELOG.md)。
+~~~text
+.
+├── SKILL.md                    # Original Chinese Skill bundle
+├── agents/                     # Chinese-bundle agent metadata
+├── assets/
+├── references/
+├── scripts/
+├── github-en/                  # Complete English installable Skill bundle
+│   ├── SKILL.md
+│   ├── agents/
+│   ├── assets/
+│   │   ├── ai-readme-template.md
+│   │   └── library-readme-template.md
+│   ├── references/
+│   └── scripts/
+└── docs/images/
+    └── workflow-overview.svg
+~~~
+
+## Validation and known limits
+
+The validation history in github-en/references/validation.md describes the original Chinese v0.7.0 scripts and synthetic fixtures. It is not independent behavioral acceptance of the translated English bundle or of a real user's files. The English package is intended for the Codex Skills convention; other agent platforms may require packaging changes. Parser coverage depends on the local environment. There is no built-in OCR, semantic/vector search service, or always-on background updater.
+
+## License and public release
+
+This repository is currently a private prerelease. No standalone reuse license has been declared for this repository. Do not redistribute or make it public until the owner confirms the rights and adds a suitable LICENSE file. GitHub explains [how repository licensing works](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository).

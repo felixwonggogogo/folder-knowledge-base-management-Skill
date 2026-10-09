@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="430" viewBox="0 0 1200 430" role="img" aria-labelledby="title desc">
+  <title id="title">Local file knowledge base workflow</title>
+  <desc id="desc">Clarify the request, inspect the library, classify with evidence, build indexes, retrieve and cite original files, then refresh when files change.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f5faf7"/>
+      <stop offset="1" stop-color="#eaf2ee"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#17856f"/>
+      <stop offset="1" stop-color="#11624f"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#16372c" flood-opacity=".09"/>
+    </filter>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0 0 8 4 0 8Z" fill="#8aa69b"/>
+    </marker>
+    <style>
+      text{font-family:Inter,Segoe UI,Arial,sans-serif;fill:#19352c}
+      .title{font-size:25px;font-weight:700;letter-spacing:-.3px}
+      .sub{font-size:13px;fill:#61746b}
+      .step{font-size:15px;font-weight:700}
+      .detail{font-size:11.5px;fill:#62746c}
+      .num{font-size:12px;font-weight:700;fill:#fff}
+      .safe{font-size:13px;font-weight:700;fill:#fff}
+      .safesub{font-size:11px;fill:#d9f0e7}
+    </style>
+  </defs>
+  <rect x="1" y="1" width="1198" height="428" rx="22" fill="url(#bg)" stroke="#dbe8e1"/>
+  <text x="42" y="54" class="title">From local files to a searchable knowledge base</text>
+  <text x="42" y="78" class="sub">A permission-aware workflow for people and AI</text>
+  <g stroke="#8aa69b" stroke-width="2" fill="none" marker-end="url(#arrow)">
+    <path d="M215 190H244"/><path d="M405 190H434"/><path d="M595 190H624"/><path d="M785 190H814"/><path d="M975 190H1004"/>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="38" y="119" width="177" height="143" rx="15" fill="#fff" stroke="#dce8e1"/>
+    <rect x="244" y="119" width="161" height="143" rx="15" fill="#fff" stroke="#dce8e1"/>
+    <rect x="434" y="119" width="161" height="143" rx="15" fill="#fff" stroke="#dce8e1"/>
+    <rect x="624" y="119" width="161" height="143" rx="15" fill="#fff" stroke="#dce8e1"/>
+    <rect x="814" y="119" width="161" height="143" rx="15" fill="#fff" stroke="#dce8e1"/>
+    <rect x="1004" y="119" width="158" height="143" rx="15" fill="#fff" stroke="#dce8e1"/>
+  </g>
+  <g>
+    <circle cx="62" cy="145" r="13" fill="url(#accent)"/><text x="58.5" y="149" class="num">1</text><text x="57" y="181" class="step">Clarify</text><text x="57" y="205" class="detail">Goal, folder, scope,</text><text x="57" y="222" class="detail">content access, actions</text>
+    <circle cx="268" cy="145" r="13" fill="url(#accent)"/><text x="264.5" y="149" class="num">2</text><text x="263" y="181" class="step">Preflight</text><text x="263" y="205" class="detail">Identify library, scan</text><text x="263" y="222" class="detail">formats and duplicates</text>
+    <circle cx="458" cy="145" r="13" fill="url(#accent)"/><text x="454.5" y="149" class="num">3</text><text x="453" y="181" class="step">Classify</text><text x="453" y="205" class="detail">Apply scenario, MECE</text><text x="453" y="222" class="detail">tags, evidence, review</text>
+    <circle cx="648" cy="145" r="13" fill="url(#accent)"/><text x="644.5" y="149" class="num">4</text><text x="643" y="181" class="step">Build indexes</text><text x="643" y="205" class="detail">SQLite catalog, AI guide,</text><text x="643" y="222" class="detail">navigation, offline portal</text>
+    <circle cx="838" cy="145" r="13" fill="url(#accent)"/><text x="834.5" y="149" class="num">5</text><text x="833" y="181" class="step">Retrieve &amp; cite</text><text x="833" y="205" class="detail">Find candidates, verify</text><text x="833" y="222" class="detail">source, cite its location</text>
+    <circle cx="1028" cy="145" r="13" fill="url(#accent)"/><text x="1024.5" y="149" class="num">6</text><text x="1023" y="181" class="step">Refresh</text><text x="1023" y="205" class="detail">Detect changes, update</text><text x="1023" y="222" class="detail">records and navigation</text>
+  </g>
+  <rect x="38" y="300" width="1124" height="82" rx="14" fill="url(#accent)"/>
+  <path d="M70 337l10 10 20-23" fill="none" stroke="#d8f3e7" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="119" y="337" class="safe">User control stays in the loop</text>
+  <text x="119" y="359" class="safesub">No guessed folders. No automatic deletion. Permanent deletion requires explicit consent for the specific items.</text>
+  <text x="1135" y="359" text-anchor="end" class="safesub">Local-first · Traceable · Recoverable</text>
+</svg>

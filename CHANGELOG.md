@@ -1,10 +1,13 @@
 # Changelog
 
-本文件记录 GitHub 独立发布包的版本。Skill 行为版本以 `SKILL.md` 的 frontmatter 为准。
+This file records releases of the standalone GitHub package. The Skill behavior version is defined in SKILL.md frontmatter in each package.
 
 ## 0.7.0 — 2026-10-09
 
-- 建立 GitHub 独立发布包，对齐本地 `folder-knowledge-base` Skill v0.7.0。
-- 包含场景澄清、能力预检、分类与受控词表、SQLite 索引、增量维护、检索导航、生命周期与可恢复文件操作。
-- 添加 GitHub 安装说明和发布边界；不依赖 Jevbox 或 MCP。
-- 不含 Python 字节码缓存或真实用户资料。
+- Created a standalone GitHub prerelease aligned with the local folder-knowledge-base Skill v0.7.0.
+- Added a complete English installable bundle in github-en while preserving the Chinese source bundle at the repository root.
+- Added English usage, classification, vocabulary, lifecycle, synchronization, safety, and validation references.
+- Added an English README and GitHub-renderable workflow overview diagram.
+- Added a bilingual human-facing portal with English as the default language and a Chinese/English switch.
+- Kept command identifiers, schema fields, and database identifiers stable.
+- No Jevbox or MCP dependency. No Python bytecode cache or real user files are included.

@@ -1,0 +1,357 @@
+<!-- folder-knowledge-base:generated:v2 -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src 'none'; connect-src 'none'; media-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>Local File Knowledge Base</title>
+<style>
+:root{font-family:Inter,"Microsoft YaHei UI","Microsoft YaHei",system-ui,sans-serif;color:#192522;background:#f5f7f4;font-synthesis:none;text-rendering:optimizeLegibility;--ink:#192522;--muted:#68736e;--line:#e0e6e1;--paper:#fff;--accent:#177e69;--accent-soft:#e7f3ef;--warning:#9a5d16;--warning-soft:#fbf1de;--shadow:0 18px 55px rgba(23,47,37,.07)}*{box-sizing:border-box}body{margin:0;min-width:320px}.topbar{height:64px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 clamp(18px,4vw,64px);background:rgba(255,255,255,.88)}.brand{display:flex;align-items:center;gap:11px;font-weight:700;letter-spacing:-.02em}.brand-mark{width:29px;height:29px;border-radius:9px;background:var(--accent);display:grid;place-items:center;color:#fff;font-size:15px}.freshness{font-size:12px;color:var(--muted);text-align:right}.shell{max-width:1440px;margin:auto;padding:34px clamp(18px,4vw,64px) 70px}.heading{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;margin-bottom:27px}.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.13em;color:var(--accent);font-weight:750}.heading h1{font-size:clamp(27px,3vw,39px);letter-spacing:-.045em;line-height:1.1;margin:9px 0 8px}.subhead{font-size:13px;color:var(--muted);margin:0}.view-switch{display:flex;gap:4px;background:#e9eeea;border-radius:11px;padding:4px}.view-switch button{border:0;border-radius:8px;padding:9px 13px;background:transparent;color:#54615b;font:inherit;font-size:12px;cursor:pointer}.view-switch button[aria-pressed="true"]{background:#fff;color:var(--ink);box-shadow:0 1px 4px #18352b16}.stats{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:25px}.stat{padding:16px 18px 17px 0}.stat+.stat{padding-left:20px;border-left:1px solid var(--line)}.stat-label{font-size:11px;color:var(--muted)}.stat-value{font-size:24px;font-variant-numeric:tabular-nums;font-weight:680;letter-spacing:-.04em;margin-top:4px}.stat-detail{font-size:10px;color:#849089;margin-top:2px}.content{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:26px;align-items:start}.workspace{min-width:0}.toolbar{display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding:0 0 14px}.search{flex:1 1 270px;position:relative}.search input{width:100%;height:39px;border:1px solid #d7dfd9;border-radius:9px;background:#fff;padding:0 13px 0 37px;color:var(--ink);font:inherit;font-size:12px;outline:none}.search input:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 3px #177e691b}.search:before{content:"⌕";position:absolute;left:13px;top:7px;color:#77847d;font-size:18px}.toolbar select{height:39px;max-width:190px;border:1px solid #d7dfd9;border-radius:9px;background:#fff;padding:0 30px 0 11px;color:#39453f;font:inherit;font-size:11px}.result-count{font-size:11px;color:var(--muted);margin-left:auto}.table-wrap{overflow:auto;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--paper)}table{border-collapse:collapse;width:100%;text-align:left}th{height:37px;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#87918b;font-weight:650;border-bottom:1px solid var(--line);white-space:nowrap}td{padding:12px 9px;border-bottom:1px solid #edf0ed;font-size:11px;vertical-align:top}th:first-child,td:first-child{padding-left:13px}tr.file-row{cursor:pointer;transition:background .14s ease}tr.file-row:hover{background:#f7faf8}tr.file-row[aria-selected="true"]{background:#edf6f2}.file-title{font-weight:650;color:var(--ink);font-size:12px;overflow-wrap:anywhere}.file-path{display:block;color:#7a857f;font-size:10px;margin-top:4px;overflow-wrap:anywhere}.badge{display:inline-flex;align-items:center;border-radius:99px;background:#edf0ed;padding:4px 7px;color:#54615b;font-size:9px;white-space:nowrap}.badge.good{background:var(--accent-soft);color:#15634f}.badge.warn{background:var(--warning-soft);color:var(--warning)}.tag-list{display:flex;flex-wrap:wrap;gap:4px}.tag{font-size:9px;border:1px solid #e0e6e1;border-radius:99px;padding:3px 6px;color:#58645e;white-space:nowrap}.empty{padding:36px 14px;color:var(--muted);font-size:12px}.pager{display:flex;align-items:center;justify-content:space-between;padding:12px 2px;color:var(--muted);font-size:11px}.pager button,.copy-button{border:1px solid #d8e0da;border-radius:8px;background:#fff;color:#34413a;padding:8px 11px;font:inherit;font-size:11px;cursor:pointer}.pager button:disabled{opacity:.42;cursor:default}.inspector{position:sticky;top:20px;border-left:1px solid var(--line);padding-left:23px;min-height:220px;animation:arrive .35s ease both}.inspector h2{font-size:15px;letter-spacing:-.02em;margin:3px 0 5px;overflow-wrap:anywhere}.inspector-path{font-size:10px;color:var(--muted);line-height:1.55;overflow-wrap:anywhere}.detail-section{border-top:1px solid var(--line);padding:14px 0}.detail-label{font-size:10px;color:#818c85;margin-bottom:7px}.detail-text{font-size:11px;line-height:1.75;color:#37443e;white-space:pre-wrap;overflow-wrap:anywhere}.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.detail-value{font-size:11px;color:#34413a;overflow-wrap:anywhere}.source-list{display:grid;gap:9px}.source-item{font-size:10px;line-height:1.6;color:#46534c}.copy-row{display:flex;align-items:center;gap:9px}.copy-state{font-size:10px;color:var(--accent)}.issue-list{border-top:1px solid var(--line)}.issue{display:grid;grid-template-columns:minmax(0,1fr) 125px;gap:18px;padding:14px 12px;border-bottom:1px solid var(--line);background:var(--paper)}.issue-path{font-size:11px;font-weight:650;overflow-wrap:anywhere}.issue-reason{font-size:10px;color:var(--warning);margin:5px 0}.issue-next{font-size:10px;color:var(--muted);line-height:1.6}.issue-state{font-size:10px;color:var(--muted);text-align:right}.banner{border:1px solid #eadab9;background:#fcf5e8;color:#6f531f;padding:10px 12px;border-radius:8px;font-size:10px;line-height:1.6;margin-bottom:15px}.footnote{margin-top:28px;padding-top:14px;border-top:1px solid var(--line);font-size:10px;line-height:1.7;color:#7b8680}.hidden{display:none!important}@keyframes arrive{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}@media(max-width:970px){.content{grid-template-columns:minmax(0,1fr) 285px;gap:18px}.inspector{padding-left:16px}.stats{grid-template-columns:repeat(3,minmax(0,1fr))}.stat:nth-child(4){border-left:0;padding-left:0}}@media(max-width:700px){.topbar{height:auto;min-height:64px;flex-wrap:wrap;gap:10px;padding-top:10px;padding-bottom:10px}.brand{min-width:0;flex:1 1 0}.language-switch{order:2}.freshness{order:3;flex:1 0 100%;max-width:none;text-align:left}.shell{padding-top:25px}.heading{display:block}.view-switch{width:max-content;margin-top:18px}.content{grid-template-columns:1fr}.inspector{position:static;border-left:0;border-top:1px solid var(--line);padding:18px 0 0;min-height:0}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.stat:nth-child(odd){padding-left:0;border-left:0}.stat:nth-child(even){padding-left:14px;border-left:1px solid var(--line)}.stat:last-child{border-top:1px solid var(--line)}.issue{grid-template-columns:1fr}.issue-state{text-align:left}.freshness{max-width:52%;line-height:1.45}.table-wrap{margin-right:-18px}th:nth-child(3),td:nth-child(3){display:none}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.folder-navigation{margin:0 0 20px;padding:12px 0;border-bottom:1px solid var(--line)}.breadcrumbs{display:flex;gap:5px;flex-wrap:wrap;align-items:center;margin-bottom:10px}.breadcrumbs button{border:0;background:transparent;padding:4px 6px;border-radius:5px;color:var(--accent);font:inherit;font-size:11px;cursor:pointer;overflow-wrap:anywhere;text-align:left}.breadcrumbs button[aria-current="location"]{background:var(--accent-soft);color:var(--ink)}.folder-controls{display:flex;gap:9px;align-items:center;flex-wrap:wrap;font-size:11px;color:var(--muted)}.folder-controls select{max-width:100%;height:35px;border:1px solid #d7dfd9;border-radius:7px;background:#fff;padding:0 8px;color:var(--ink);font:inherit;font-size:11px}.folder-controls #folder-child{max-width:min(420px,100%)}.folder-range{overflow-wrap:anywhere}
+.language-switch{height:35px;border:1px solid #d7dfd9;border-radius:8px;background:#fff;padding:0 9px;color:#34413a;font:inherit;font-size:11px}\n</style>
+</head>
+<body>
+<script id="kb-data" type="application/json">__KBASE_DATA__</script>
+
+<noscript><main style="max-width:48rem;margin:3rem auto;padding:1rem;font:16px/1.7 system-ui,sans-serif"><h1>Local File Knowledge Base / 本地文件知识库</h1><p>Enable JavaScript to use the interactive catalog. / 启用 JavaScript 以使用互动目录。</p><p><a href="AI_INDEX.md">AI_INDEX.md · Root index / 总索引</a> · <a href="README.md">README.md · Instructions / 使用说明</a></p></main></noscript>
+<header class="topbar">
+  <div class="brand"><span class="brand-mark" aria-hidden="true">KB</span><span data-i18n="brand">Local File Knowledge Base</span></div>
+  <select id="language-switch" class="language-switch" aria-label="Language / 语言"><option value="en">English</option><option value="zh-CN">中文</option></select>
+  <div class="freshness" id="freshness"></div>
+</header>
+<main class="shell">
+  <section class="heading">
+    <div><div class="eyebrow" data-i18n="eyebrow">LIBRARY NAVIGATION · OFFLINE SNAPSHOT</div><h1 id="library-name">Local File Knowledge Base</h1><p class="subhead" id="scope-line"></p></div>
+    <nav class="view-switch" aria-label="Library views" data-i18n-aria="libraryViews"><button type="button" data-view="files" aria-pressed="true" data-i18n="files">Files</button><button type="button" data-view="issues" aria-pressed="false"><span data-i18n="needsReview">Needs review</span> <span id="issue-count"></span></button></nav>
+  </section>
+  <section class="stats" id="stats" aria-label="Library status" data-i18n-aria="libraryStatus"></section>
+  <nav class="folder-navigation" aria-label="Browse folders" data-i18n-aria="browseFolders">
+    <div id="breadcrumbs" class="breadcrumbs"></div>
+    <div class="folder-controls">
+      <select id="folder-child" aria-label="Open a child folder"></select>
+      <select id="folder-scope" aria-label="Folder scope"><option value="subtree" data-i18n="includeSubfolders">Include subfolders</option><option value="direct" data-i18n="currentFolderOnly">Current folder only</option></select>
+      <span id="folder-range" class="folder-range"></span>
+    </div>
+  </nav>
+  <section id="file-view" class="content">
+    <div class="workspace">
+      <div id="snapshot-banner" class="banner hidden"></div>
+      <div class="toolbar">
+        <label class="search"><input id="q" type="search" placeholder="Search names, paths, summaries, or tags" aria-label="Search the library" data-i18n-placeholder="searchPlaceholder" data-i18n-aria="searchPlaceholder"></label>
+        <select id="category-filter" aria-label="Filter by category" data-i18n-aria="filterCategory"><option value="" data-i18n="allCategories">All categories</option></select>
+        <select id="type-filter" aria-label="Filter by document type" data-i18n-aria="filterType"><option value="" data-i18n="allTypes">All document types</option></select>
+        <select id="format-filter" aria-label="Filter by file format" data-i18n-aria="filterFormat"><option value="" data-i18n="allFormats">All formats</option></select>
+        <select id="topic-filter" aria-label="Filter by topic" data-i18n-aria="filterTopic"><option value="" data-i18n="allTopics">All topics</option></select>
+        <select id="status-filter" aria-label="Filter by content review" data-i18n-aria="filterReview">
+          <option value="" data-i18n="allReviewStates">All review states</option><option value="reviewed" data-i18n="reviewed">Reviewed</option><option value="partial" data-i18n="partiallyReviewed">Partially reviewed</option><option value="unreviewed" data-i18n="notReviewed">Not reviewed</option><option value="unavailable" data-i18n="unavailable">Unavailable</option>
+        </select>
+        <select id="business-filter" aria-label="Filter by business lifecycle" data-i18n-aria="filterBusiness">
+          <option value="" data-i18n="allBusinessStates">All business states</option><option value="unknown" data-i18n="unknown">Unknown</option><option value="draft" data-i18n="draft">Draft</option><option value="in_review" data-i18n="inReview">In review</option><option value="active" data-i18n="active">Active</option><option value="completed" data-i18n="completed">Completed</option><option value="superseded" data-i18n="superseded">Superseded</option><option value="archived" data-i18n="archived">Archived</option>
+        </select>
+        <span id="result-count" class="result-count"></span>
+      </div>
+      <div class="table-wrap">
+        <table><thead><tr><th data-i18n="file">File</th><th data-i18n="categoryTags">Category / Tags</th><th data-i18n="reviewState">Review state</th></tr></thead><tbody id="file-rows"></tbody></table>
+        <div id="empty-files" class="empty hidden"></div>
+      </div>
+      <div class="pager"><span id="page-label"></span><span><button id="previous" type="button" data-i18n="previous">Previous</button> <button id="next" type="button" data-i18n="next">Next</button></span></div>
+    </div>
+    <aside id="inspector" class="inspector" aria-live="polite"><p class="detail-label" data-i18n="fileDetails">File details</p><p class="detail-text" data-i18n="selectFile">Select a file to view its path, tags, review state, and source locators.</p></aside>
+  </section>
+  <section id="issue-view" class="hidden">
+    <div class="toolbar"><select id="issue-filter" aria-label="Filter by issue type" data-i18n-aria="filterIssue"><option value="" data-i18n="allIssueTypes">All issue types</option></select><span id="issue-result-count" class="result-count"></span></div>
+    <div id="issues" class="issue-list"></div><div id="empty-issues" class="empty hidden"></div>
+  </section>
+  <footer class="footnote" id="footnote"></footer>
+</main>
+<script>
+(()=> {
+  const data = JSON.parse(document.getElementById('kb-data').textContent);
+  const $ = id => document.getElementById(id);
+  const text = (node, value) => { node.textContent = value == null ? '' : String(value); };
+  const files = Array.isArray(data.files) ? data.files : [];
+  const issues = Array.isArray(data.issues) ? data.issues : [];
+  const messages = {
+    en: {
+      brand:'Local File Knowledge Base', eyebrow:'LIBRARY NAVIGATION · OFFLINE SNAPSHOT', files:'Files', needsReview:'Needs review',
+      includeSubfolders:'Include subfolders', currentFolderOnly:'Current folder only', searchPlaceholder:'Search names, paths, summaries, or tags',
+      filterCategory:'Filter by category', allCategories:'All categories', filterType:'Filter by document type', allTypes:'All document types',
+      filterFormat:'Filter by file format', allFormats:'All formats', filterTopic:'Filter by topic', allTopics:'All topics',
+      filterReview:'Filter by content review', allReviewStates:'All review states', reviewed:'Reviewed', partiallyReviewed:'Partially reviewed',
+      notReviewed:'Not reviewed', unavailable:'Unavailable', filterBusiness:'Filter by business lifecycle', allBusinessStates:'All business states',
+      unknown:'Unknown', draft:'Draft', inReview:'In review', active:'Active', completed:'Completed', superseded:'Superseded', archived:'Archived',
+      file:'File', categoryTags:'Category / Tags', reviewState:'Review state', previous:'Previous', next:'Next', fileDetails:'File details',
+      selectFile:'Select a file to view its path, tags, review state, and source locators.', filterIssue:'Filter by issue type', libraryViews:'Library views', libraryStatus:'Library status', browseFolders:'Browse folders', allIssueTypes:'All issue types',
+      allFiles:'All files', openChild:'Open child folder', folders:'folders', filesWord:'files', currentScope:'Current scope',
+      descendants:'Include descendant files', directOnly:'Direct files only', statFiles:'Files', activeInventory:'Active inventory',
+      classReview:'Classification review', inheritedUnclassified:'Includes inherited/unclassified', bodyReviewed:'Body reviewed',
+      withEvidence:'With content evidence', issueRecords:'Visible issue records', parsingLimited:'Parsing limited', causeNext:'See cause and next step',
+      generated:'Generated', scanned:'Scanned', generalCandidate:'Not saved; general is only a candidate', scenario:'Scenario',
+      vocabularyRevision:'Vocabulary revision', browseSummary:'Browse by folder, topic, document type, and format',
+      snapshotIntro:'This page is an inventory snapshot: exported', item:'item', items:'items', omitted:'items were omitted. Use the Skill database query for the complete inventory.',
+      snapshotNote:'revision offline inventory snapshot. Generated', scannedAt:'; scanned', pageLimit:'; this page does not monitor the disk or verify source hashes. Use the knowledge-base tool to search file contents.',
+      unclassified:'Unclassified', classificationConfident:'Classified with evidence', needsClassificationReview:'Needs classification review',
+      unknownParse:'Unknown parse state', fileId:'File ID', documentType:'Document type', unconfirmed:'Unconfirmed', format:'Format',
+      vocabularyReview:'Vocabulary review', reviewNeeded:'Review needed', noAction:'No action needed', size:'Size', classificationBasis:'Classification basis',
+      notRecorded:'Not recorded', businessState:'Business state', documentVersion:'Document version', versionGroup:'Version group',
+      currentVersion:'Current version', designatedAtGeneration:'Designated at generation time', notDesignated:'Not designated',
+      reviewDate:'Review date', notSet:'Not set', partialSummary:'Partial content summary', contentSummary:'Content summary',
+      folderFilenameNote:'Folder/filename note', tags:'Tags', aliases:'Aliases', classificationEvidence:'Classification/summary evidence',
+      readCoverage:'Read coverage/limits', openSource:'Open source file', copyCitation:'Copy citation', source:'Source',
+      verifyLocator:'Verify the page/line locator in the source', copied:'Copied', noFilesMatch:'No files match the current filters.',
+      noMatchingFile:'No matching file.', pageOf:'of', nextStep:'Next:', noIssues:'No items need review.',
+      issuesCertainty:'Confirmed', suspected:'Needs verification', current:'current', legacy:'legacy',
+      extractionText:'Text extracted', extractionPartial:'Partial format coverage', extractionTruncated:'Truncated', extractionUnsupported:'Unsupported format',
+      extractionLimit:'Size limit exceeded', extractionOcr:'No text / OCR may be needed', extractionEncrypted:'Encrypted', extractionError:'Read error',
+      extractionEncoding:'Encoding review needed', stateActive:'Active', stateMissing:'Missing', stateQuarantined:'Quarantined'
+    },
+    'zh-CN': {
+      brand:'本地文件知识库', eyebrow:'资料导航 · 离线快照', files:'文件浏览', needsReview:'待处理',
+      includeSubfolders:'含子目录', currentFolderOnly:'仅本目录', searchPlaceholder:'搜索名称、路径、摘要或标签',
+      filterCategory:'筛选分类', allCategories:'全部分类', filterType:'筛选资料类型', allTypes:'全部资料类型',
+      filterFormat:'筛选文件格式', allFormats:'全部格式', filterTopic:'筛选主题', allTopics:'全部主题',
+      filterReview:'筛选正文审阅状态', allReviewStates:'全部读取状态', reviewed:'内容已审阅', partiallyReviewed:'部分审阅',
+      notReviewed:'尚未审阅', unavailable:'暂不可读', filterBusiness:'筛选业务生命周期', allBusinessStates:'全部业务阶段',
+      unknown:'未确认', draft:'草稿', inReview:'待审核', active:'使用中', completed:'已完成', superseded:'已被替代', archived:'已归档',
+      file:'文件', categoryTags:'分类 / 标签', reviewState:'读取状态', previous:'上一页', next:'下一页', fileDetails:'文件详情',
+      selectFile:'选择一份资料查看路径、标签、读取状态和原文定位。', filterIssue:'按问题类型筛选', libraryViews:'资料视图', libraryStatus:'资料状态', browseFolders:'按文件夹逐层浏览', allIssueTypes:'所有问题类型',
+      allFiles:'全部资料', openChild:'进入子文件夹', folders:'个', filesWord:'份资料', currentScope:'当前范围',
+      descendants:'包含后代文件', directOnly:'仅直接文件', statFiles:'文件', activeInventory:'活动清单',
+      classReview:'主分类待复核', inheritedUnclassified:'含目录继承与待识别', bodyReviewed:'正文已审阅',
+      withEvidence:'有内容证据', issueRecords:'显示问题记录数量', parsingLimited:'解析受限', causeNext:'查看原因与下一步',
+      generated:'页面生成', scanned:'最近盘点', generalCandidate:'尚未保存，默认候选为个人综合资料', scenario:'场景',
+      vocabularyRevision:'词表版本', browseSummary:'按目录、主题、资料类型与格式查找',
+      snapshotIntro:'此页面是资料清单快照：导出', item:'项', items:'项', omitted:'项未纳入。请使用 Skill 数据库检索查询完整清单。',
+      snapshotNote:'修订的离线清单快照。页面生成于', scannedAt:'，盘点于', pageLimit:'；网页不监视磁盘，也不校验源文件哈希。正文检索由知识库工具执行。',
+      unclassified:'待分类', classificationConfident:'有证据的分类', needsClassificationReview:'待复核',
+      unknownParse:'未知解析状态', fileId:'文件 ID', documentType:'资料类型', unconfirmed:'未确认', format:'格式',
+      vocabularyReview:'词表复核', reviewNeeded:'需要复核', noAction:'无待办', size:'大小', classificationBasis:'分类依据',
+      notRecorded:'未记录', businessState:'业务状态', documentVersion:'文档版本', versionGroup:'版本组',
+      currentVersion:'当前版本', designatedAtGeneration:'生成时的指定版本', notDesignated:'未指定',
+      reviewDate:'复核日期', notSet:'未设置', partialSummary:'部分内容摘要', contentSummary:'内容摘要',
+      folderFilenameNote:'目录 / 文件名说明', tags:'标签', aliases:'别名', classificationEvidence:'分类 / 摘要依据',
+      readCoverage:'读取范围 / 限制', openSource:'打开原文件', copyCitation:'复制来源', source:'来源',
+      verifyLocator:'原文页/行定位需核验', copied:'已复制', noFilesMatch:'没有符合当前筛选条件的文件。',
+      noMatchingFile:'没有符合条件的文件。', pageOf:'共', nextStep:'下一步：', noIssues:'当前没有待处理项。',
+      issuesCertainty:'已确认', suspected:'待核实', current:'当前', legacy:'旧版',
+      extractionText:'已提取文本', extractionPartial:'部分格式内容', extractionTruncated:'超过读取范围', extractionUnsupported:'格式暂不支持',
+      extractionLimit:'超过文件上限', extractionOcr:'无可用文字 / 可能需要 OCR', extractionEncrypted:'加密文件', extractionError:'读取失败',
+      extractionEncoding:'需确认编码', stateActive:'活动', stateMissing:'缺失', stateQuarantined:'已隔离'
+    }
+  };
+  let locale = 'en';
+  const t = key => (messages[locale] || messages.en)[key] || key;
+  const pageSize = 40;
+  let page = 0, selected = null, view = 'files', folder = '';
+  const fmt = n => new Intl.NumberFormat(locale === 'zh-CN' ? 'zh-CN' : 'en-US').format(Number(n || 0));
+  const countUnit = n => locale==='zh-CN' ? t('items') : (Number(n)===1 ? t('item') : t('items'));
+  const escPath = p => './' + String(p || '').split('/').map(encodeURIComponent).join('/');
+  const safeSource = e => String(e.locator || '') + ' · ' + String(e.basis || '');
+  function option(select, value, label) { const o=document.createElement('option'); o.value=value; text(o,label); select.append(o); }
+  function applyLanguage() {
+    document.documentElement.lang = locale;
+    $('language-switch').value = locale;
+    document.querySelectorAll('[data-i18n]').forEach(n => text(n, t(n.dataset.i18n)));
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(n => n.placeholder = t(n.dataset.i18nPlaceholder));
+    document.querySelectorAll('[data-i18n-aria]').forEach(n => n.setAttribute('aria-label', t(n.dataset.i18nAria)));
+    renderHeader(); renderIssueFilter(); renderFolderNavigation(); renderStats(); renderFiles(); renderIssues();
+  }
+  function stateLabel(code) {
+    const map = {unknown:'unknown',draft:'draft',in_review:'inReview',active:'active',completed:'completed',superseded:'superseded',archived:'archived'};
+    return map[code] ? t(map[code]) : t('unknown');
+  }
+  function classLabel(f) {
+    const map = {inherited:'inheritedUnclassified',confident:'classificationConfident',review:'needsClassificationReview',unknown:'unclassified',unclassified:'unclassified'};
+    return map[f.classification_status] ? t(map[f.classification_status]) : (f.classification_label || t('unclassified'));
+  }
+  function semanticLabel(f) {
+    const map = {reviewed:'reviewed',partial:'partiallyReviewed',unreviewed:'notReviewed',unavailable:'unavailable'};
+    return map[f.semantic_status] ? t(map[f.semantic_status]) : (f.semantic_label || t('unknown'));
+  }
+  function extractionLabel(f) {
+    const map = {text_cached:'extractionText',partial_format:'extractionPartial',truncated:'extractionTruncated',unsupported:'extractionUnsupported',size_limit:'extractionLimit',empty_or_ocr_required:'extractionOcr',encrypted:'extractionEncrypted',error:'extractionError',encoding_required:'extractionEncoding',read_error:'extractionError'};
+    return map[f.extraction_status] ? t(map[f.extraction_status]) : (f.extraction_label || t('unknownParse'));
+  }
+  const categories = new Map(), types = new Set(), topics = new Map(), formats = new Set(), issueTypes = new Map();
+  for (const f of files) {
+    if (f.category_label) categories.set(f.category_id, f.category_label);
+    if (f.extension) formats.add(f.extension);
+    for (const tag of (f.tags || [])) {
+      if (['document_type','file_type'].includes(tag.facet)) types.add(tag.label);
+      if (tag.facet === 'topic') topics.set(tag.id, tag.label);
+    }
+  }
+  for (const i of issues) issueTypes.set(i.reason_code, i.reason_label || i.reason_code);
+  [...categories].sort((a,b)=>a[1].localeCompare(b[1],locale)).forEach(([id,label])=>option($('category-filter'),id,label));
+  [...types].sort((a,b)=>a.localeCompare(b,locale)).forEach(v=>option($('type-filter'),v,v));
+  [...formats].sort().forEach(v=>option($('format-filter'),v,v));
+  [...topics].sort((a,b)=>a[1].localeCompare(b[1],locale)).forEach(([id,label])=>option($('topic-filter'),id,label));
+  [...issueTypes].sort((a,b)=>a[1].localeCompare(b[1],locale)).forEach(([id,label])=>option($('issue-filter'),id,label));
+  const issueText = {
+    unsupported_format:{en:['Unsupported format','No parser for this format is available in the current environment; body text was not extracted.','Use an available host tool to read or convert the file, or ask the user to save it in a supported format and retry.'],zh:['格式暂不支持','当前运行环境没有可读取此格式的解析器；尚未提取正文。','使用宿主已有工具转换或读取，或请用户另存为受支持格式后重试。']},
+    size_limit:{en:['Size limit','The file or extracted text exceeds the current read limit; the body may be unread or only partially covered.','Check the format and size, then read in chunks or adjust limits based on available resources.'],zh:['超过读取上限','文件或提取文本超过本轮读取限制；正文可能未读或只覆盖部分内容。','先检查文件格式与大小，再分块读取或按可用资源调整限制。']},
+    truncated:{en:['Truncated text','Extracted text exceeded the cache limit; the current cache does not contain the full text.','Extract in chunks and record the exact coverage before retrying.'],zh:['文本已截断','提取文本超过缓存上限；当前缓存不包含全文。','分块提取并记录具体覆盖范围后重试。']},
+    empty_or_ocr_required:{en:['No text / OCR may be needed','No usable text was extracted. Scans, images, blank documents, or format limitations may explain this.','Inspect representative pages; use available OCR when needed and verify its output.'],zh:['无可用文字 / 可能需要 OCR','当前未提取到可用文字；扫描件、图片、空白文档或格式限制都可能导致此情况。','检查代表页面；需要时使用可用 OCR 并核对识别结果。']},
+    encoding_required:{en:['Encoding review','The file encoding is not compatible with the current UTF-8 reader; this does not prove the file is corrupt.','Identify the encoding and retry with an authorized local decoder.'],zh:['需要确认编码','文件编码与当前 UTF-8 读取方式不兼容；这不能证明文件损坏。','确定编码后，使用获准的本地解码器重新读取。']},
+    partial_format:{en:['Partial format coverage','Some text was extracted, but layout, images, charts, comments, or non-body content may be missing.','Check important fields in the original page or slide, or render the file with a host tool.'],zh:['部分格式内容未覆盖','已提取部分文字；版式、图片、图表、批注或非正文内容可能未覆盖。','查看原文件中的重要页面或幻灯片，必要时用宿主渲染核对。']},
+    encrypted:{en:['Encrypted file','The file is encrypted; its body was not read.','Ask the user to unlock it or provide a readable copy, then retry.'],zh:['加密文件','文件受加密保护，当前未读取正文。','请用户解锁或提供可读副本后重试。']},
+    read_error:{en:['Read error','The read failed; check the recorded error for details.','Confirm that the file is accessible and stable, then retry; inspect for corruption if needed.'],zh:['读取失败','本轮读取失败；具体原因需要结合错误记录确认。','确认文件可访问且状态稳定后重试，必要时检查文件是否损坏。']},
+    classification_needed:{en:['Classification needed','The file has no valid classification record.','Classify it from available evidence; ask the user when evidence is insufficient.'],zh:['需要分类','文件尚无有效分类档案。','依据可读取证据分类；证据不足时询问用户。']},
+    classification_review:{en:['Classification review','The existing classification needs review; see the recorded reason.','Recheck the source or ask the user; keep the current location until confirmed.'],zh:['分类待复核','现有分类需要复核，原因记录在档案中。','回看原文或询问用户；确认前保留当前位置。']},
+    vocabulary_review:{en:['Vocabulary review','A tag definition or vocabulary relationship changed; existing annotations need review.','Check the current vocabulary and source, then re-annotate after confirming the meaning. Do not move the file automatically.'],zh:['词表待复核','标签定义或词条关系已调整，需要复核原标注。','检查当前词表与原文，确认标签含义后重新标注；不要自动移动文件。']}
+  };
+  function issueField(item, position) {
+    const copy=issueText[item.reason_code];
+    return copy ? copy[locale==='zh-CN'?'zh':'en'][position] : (position===0 ? (item.reason_label||item.reason_code) : position===1 ? item.message : item.next_action);
+  }
+  function renderIssueFilter() {
+    const select=$('issue-filter'), selected=select.value;
+    select.replaceChildren(); option(select,'',t('allIssueTypes'));
+    [...issueTypes].sort((a,b)=>a[1].localeCompare(b[1],locale)).forEach(([id,label])=>option(select,id,issueText[id]?.[locale==='zh-CN'?'zh':'en'][0]||label));
+    if([...issueTypes.keys()].includes(selected)) select.value=selected;
+  }
+  const nodes = new Map();
+  const validPath = p => typeof p === 'string' && !p.startsWith('/') && !p.includes('\\') && !p.includes(':') && (p === '' || p.split('/').every(x=>x && x!=='.' && x!=='..'));
+  for (const n of (data.directories || [])) if (validPath(n.path)) nodes.set(n.path,{...n});
+  if (!nodes.has('')) nodes.set('',{path:'',name:t('allFiles'),parent:null,direct_files:0,subtree_files:files.length,child_directories:0});
+  for (const f of files) { let parts=String(f.path||'').split('/'); parts.pop(); while(parts.length) { const path=parts.join('/'); if(validPath(path)&&!nodes.has(path)) nodes.set(path,{path,name:parts[parts.length-1],parent:parts.slice(0,-1).join('/'),direct_files:null,subtree_files:null}); parts.pop(); } }
+  function enterFolder(path) { if(!nodes.has(path)) return; folder=path; page=0; selected=null; renderFolderNavigation(); renderFiles(); }
+  function renderFolderNavigation() {
+    const crumbs=$('breadcrumbs'); crumbs.replaceChildren();
+    const parts=folder?folder.split('/'):[];
+    const paths=['',...parts.map((_,i)=>parts.slice(0,i+1).join('/'))];
+    for(const path of paths) {
+      const b=document.createElement('button'); b.type='button';
+      text(b,path?(nodes.get(path)?.name||path.split('/').pop()):t('allFiles'));
+      if(path===folder)b.setAttribute('aria-current','location');
+      b.addEventListener('click',()=>enterFolder(path)); crumbs.append(b);
+    }
+    const child=$('folder-child'); child.replaceChildren();
+    const children=[...nodes.values()].filter(n=>n.path&&n.parent===folder).sort((a,b)=>a.path.localeCompare(b.path,locale));
+    option(child,'',t('openChild')+' ('+fmt(children.length)+' '+t('folders')+')');
+    for(const n of children) option(child,n.path,n.name+(n.subtree_files==null?'':' · '+fmt(n.subtree_files)+' '+t('filesWord')));
+    child.disabled=!children.length;
+    text($('folder-range'),t('currentScope')+': '+(folder||t('allFiles'))+' · '+($('folder-scope').value==='direct'?t('directOnly'):t('descendants')));
+  }
+  $('folder-child').addEventListener('change',()=>{if($('folder-child').value)enterFolder($('folder-child').value)});
+  $('folder-scope').addEventListener('change',()=>{page=0;renderFolderNavigation();renderFiles()});
+  function renderStats() {
+    const stats=[
+      [t('statFiles'),data.stats?.active_files,t('activeInventory')],
+      [t('classReview'),data.stats?.classification_review_required??files.filter(f=>f.classification_status!=='confident').length,t('inheritedUnclassified')],
+      [t('bodyReviewed'),data.stats?.semantic_reviewed,t('withEvidence')],
+      [t('needsReview'),issues.length,t('issueRecords')],
+      [t('parsingLimited'),data.stats?.parsing_limited,t('causeNext')]
+    ];
+    $('stats').replaceChildren();
+    for(const [label,value,detail] of stats){const d=document.createElement('div');d.className='stat';const a=document.createElement('div');a.className='stat-label';text(a,label);const b=document.createElement('div');b.className='stat-value';text(b,fmt(value));const c=document.createElement('div');c.className='stat-detail';text(c,detail);d.append(a,b,c);$('stats').append(d);}
+  }
+  const generatedAt=data.generated_at, scannedAt=data.last_scanned_at;
+  const revision=data.catalog_revision||(locale==='zh-CN'?'当前':'current');
+  const snapshotIncomplete=Boolean(data.scope?.truncated||data.scope?.omitted_count);
+  function renderHeader() {
+    document.title=locale==='zh-CN'?'本地文件知识库':'Local File Knowledge Base';
+    text($('freshness'),t('generated')+' '+(generatedAt||t('unknown'))+' · '+t('scanned')+' '+(scannedAt||t('unknown')));
+    text($('library-name'),data.library_name||t('brand'));
+    text($('issue-count'),issues.length?'· '+fmt(issues.length):'');
+    const rawScenario=data.scenario?.document?.label;
+    const scenarioLabel=locale==='zh-CN'&&rawScenario==='General personal files (default)'?'个人综合资料（默认）':(rawScenario||t('generalCandidate'));
+    text($('scope-line'),t('scenario')+': '+scenarioLabel+' · '+t('vocabularyRevision')+': '+(data.vocabulary_version||t('legacy'))+' · '+t('browseSummary'));
+    $('snapshot-banner').classList.toggle('hidden',!snapshotIncomplete);
+    if(snapshotIncomplete) text($('snapshot-banner'),t('snapshotIntro')+' '+fmt(files.length)+' '+t('items')+'; '+fmt(data.scope?.omitted_count)+' '+t('omitted'));
+    const stampGenerated=generatedAt||t('unknown'), stampScanned=scannedAt||t('unknown');
+    const footnote=locale==='zh-CN'
+      ? '页面为 '+revision+' 修订的离线清单快照。页面生成于 '+stampGenerated+'，盘点于 '+stampScanned+'；网页不监视磁盘，也不校验源文件哈希。正文检索由知识库工具执行。'
+      : 'Offline inventory snapshot, revision '+revision+'. Generated '+stampGenerated+'; last scanned '+stampScanned+'. This page does not monitor the disk or verify source hashes; use the knowledge-base tool to search file contents.';
+    text($('footnote'),footnote);
+  }
+  function matches() {
+    const q=$('q').value.normalize('NFKC').trim().toLocaleLowerCase();
+    const cat=$('category-filter').value, typ=$('type-filter').value, sem=$('status-filter').value;
+    return files.filter(f=>{
+      if($('business-filter').value&&(f.business_state||'unknown')!==$('business-filter').value)return false;
+      const parent=String(f.path||'').split('/').slice(0,-1).join('/');
+      if($('folder-scope').value==='direct'?parent!==folder:(folder&&!String(f.path||'').startsWith(folder+'/')))return false;
+      if(cat&&f.category_id!==cat)return false;
+      if(typ&&!(f.tags||[]).some(t=>['document_type','file_type'].includes(t.facet)&&t.label===typ))return false;
+      if(sem&&f.semantic_status!==sem)return false;
+      if($('format-filter').value&&f.extension!==$('format-filter').value)return false;
+      if($('topic-filter').value&&!(f.tags||[]).some(t=>t.facet==='topic'&&t.id===$('topic-filter').value))return false;
+      if(q){const s=[f.title,f.name,f.path,f.summary,f.legacy_note,...(f.tags||[]).flatMap(t=>[t.label,t.id,...(t.aliases||[])])].filter(Boolean).join(' ').normalize('NFKC').toLocaleLowerCase();if(!s.includes(q))return false;}
+      return true;
+    });
+  }
+  function detail(f) {
+    const box=$('inspector');box.replaceChildren();
+    const label=document.createElement('p');label.className='detail-label';text(label,t('fileDetails'));
+    const h=document.createElement('h2');text(h,f.title||f.name);
+    const p=document.createElement('div');p.className='inspector-path';text(p,f.path);box.append(label,h,p);
+    const badges=document.createElement('div');badges.className='detail-section';const row=document.createElement('div');row.className='tag-list';
+    for(const value of [classLabel(f),semanticLabel(f),extractionLabel(f)]){const b=document.createElement('span');b.className='badge '+(f.semantic_status==='reviewed'?'good':f.semantic_status==='unreviewed'?'warn':'');text(b,value);row.append(b);}
+    badges.append(row);box.append(badges);
+    const state=f.business_state||'unknown';
+    const props=document.createElement('div');props.className='detail-section detail-grid';
+    const values=[[t('fileId'),f.file_id],[t('documentType'),f.document_type_label||t('unconfirmed')],[t('format'),f.extension||t('unknown')],[t('vocabularyReview'),f.vocabulary_review_required?t('reviewNeeded'):t('noAction')],[t('size'),f.size_human||''],[t('classificationBasis'),f.classification_basis_label||t('notRecorded')],[t('businessState'),stateLabel(state)],[t('documentVersion'),f.version_label||t('unconfirmed')],[t('versionGroup'),f.version_group||t('unconfirmed')],[t('currentVersion'),f.is_current?t('designatedAtGeneration'):t('notDesignated')],[t('reviewDate'),f.review_on||t('notSet')]];
+    for(const [k,v] of values){const cell=document.createElement('div');const l=document.createElement('div');l.className='detail-label';text(l,k);const val=document.createElement('div');val.className='detail-value';text(val,v);cell.append(l,val);props.append(cell);}
+    box.append(props);
+    if(f.summary){const s=document.createElement('section');s.className='detail-section';const l=document.createElement('div');l.className='detail-label';text(l,f.semantic_status==='partial'?t('partialSummary'):t('contentSummary'));const c=document.createElement('div');c.className='detail-text';text(c,f.summary);s.append(l,c);box.append(s);}
+    else if(f.legacy_note){const s=document.createElement('section');s.className='detail-section';const l=document.createElement('div');l.className='detail-label';text(l,t('folderFilenameNote'));const c=document.createElement('div');c.className='detail-text';text(c,f.legacy_note);s.append(l,c);box.append(s);}
+    const tags=(f.tags||[]).filter(t=>t.facet!=='file_type');
+    if(tags.length){const s=document.createElement('section');s.className='detail-section';const l=document.createElement('div');l.className='detail-label';text(l,t('tags'));const wrap=document.createElement('div');wrap.className='tag-list';for(const tag of tags){const x=document.createElement('span');x.className='tag';text(x,tag.facet+' · '+tag.label);x.title=[tag.definition,tag.aliases?.length?t('aliases')+': '+tag.aliases.join(', '):''].filter(Boolean).join('; ');wrap.append(x);}s.append(l,wrap);box.append(s);}
+    const ev=f.evidence||[];
+    if(ev.length){const s=document.createElement('section');s.className='detail-section';const l=document.createElement('div');l.className='detail-label';text(l,t('classificationEvidence'));const list=document.createElement('div');list.className='source-list';for(const e of ev){const x=document.createElement('div');x.className='source-item';text(x,safeSource(e));list.append(x);}s.append(l,list);box.append(s);}
+    const issueMessages=(f.issue_codes||[]).map(code=>issueText[code]?.[locale==='zh-CN'?'zh':'en'][1]).filter(Boolean).join('\n');
+    if(f.read_coverage||issueMessages){const s=document.createElement('section');s.className='detail-section';const l=document.createElement('div');l.className='detail-label';text(l,t('readCoverage'));const c=document.createElement('div');c.className='detail-text';text(c,[f.read_coverage,issueMessages].filter(Boolean).join('\n'));s.append(l,c);box.append(s);}
+    const actions=document.createElement('section');actions.className='detail-section copy-row';
+    const a=document.createElement('a');a.href=escPath(f.path);a.textContent=t('openSource');a.className='copy-button';a.rel='noreferrer';a.addEventListener('click',e=>{if(!f.path||f.path.split('/').includes('..'))e.preventDefault();});
+    const copy=document.createElement('button');copy.type='button';copy.className='copy-button';text(copy,t('copyCitation'));
+    const stateNote=document.createElement('span');stateNote.className='copy-state';
+    copy.addEventListener('click',async()=>{const citation=t('source')+': '+f.path+'; file_id='+f.file_id+'; '+t('verifyLocator');try{await navigator.clipboard.writeText(citation);text(stateNote,t('copied'));}catch{text(stateNote,citation);}});
+    actions.append(a,copy,stateNote);box.append(actions);
+  }
+  function renderFiles() {
+    const all=matches(),start=page*pageSize,shown=all.slice(start,start+pageSize),body=$('file-rows');body.replaceChildren();
+    for(const f of shown){
+      const tr=document.createElement('tr');tr.className='file-row';tr.tabIndex=0;tr.setAttribute('aria-selected',String(selected===f.file_id));
+      const main=document.createElement('td');const title=document.createElement('div');title.className='file-title';text(title,f.title||f.name);
+      const path=document.createElement('span');path.className='file-path';text(path,f.path);main.append(title,path);
+      const meta=document.createElement('td');const cl=document.createElement('span');cl.className='badge';text(cl,classLabel(f));meta.append(cl);
+      const tags=document.createElement('div');tags.className='tag-list';for(const tag of (f.tags||[]).slice(0,3)){const s=document.createElement('span');s.className='tag';text(s,tag.label);tags.append(s);}meta.append(tags);
+      const read=document.createElement('td');const status=document.createElement('span');status.className='badge '+(f.semantic_status==='reviewed'?'good':f.semantic_status==='unreviewed'?'warn':'');text(status,semanticLabel(f));read.append(status);
+      tr.append(main,meta,read);tr.addEventListener('click',()=>{selected=f.file_id;detail(f);renderFiles();});tr.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();tr.click();}});body.append(tr);
+    }
+    $('empty-files').classList.toggle('hidden',all.length>0);text($('empty-files'),all.length?'':t('noFilesMatch'));
+    text($('result-count'),fmt(all.length)+' '+countUnit(all.length));
+    text($('page-label'),all.length?fmt(start+1)+'–'+fmt(Math.min(start+pageSize,all.length))+' / '+fmt(all.length):'0 '+t('items'));
+    $('previous').disabled=page===0;$('next').disabled=start+pageSize>=all.length;
+    if(!shown.some(f=>f.file_id===selected)){selected=shown[0]?.file_id||null;if(selected)detail(shown[0]);else{$('inspector').replaceChildren();text($('inspector'),t('noMatchingFile'));}}
+  }
+  function renderIssues() {
+    const selectedReason=$('issue-filter').value, rows=issues.filter(x=>!selectedReason||x.reason_code===selectedReason);
+    $('issues').replaceChildren();
+    for(const item of rows){
+      const row=document.createElement('article');row.className='issue';const left=document.createElement('div');
+      const path=document.createElement('div');path.className='issue-path';text(path,item.path);
+      const reason=document.createElement('div');reason.className='issue-reason';text(reason,issueField(item,0));
+      const message=document.createElement('div');message.className='issue-next';text(message,issueField(item,1));
+      const next=document.createElement('div');next.className='issue-next';text(next,t('nextStep')+' '+(issueField(item,2)||''));
+      left.append(path,reason,message,next);const right=document.createElement('div');right.className='issue-state';
+      const certainty=item.certainty==='confirmed'?t('issuesCertainty'):item.certainty==='suspected'?t('suspected'):(item.certainty||'');
+      text(right,certainty+' · '+semanticLabel({semantic_status:item.semantic_status}));row.append(left,right);$('issues').append(row);
+    }
+    $('empty-issues').classList.toggle('hidden',rows.length>0);text($('empty-issues'),rows.length?'':t('noIssues'));text($('issue-result-count'),fmt(rows.length)+' '+countUnit(rows.length));
+  }
+  function rerender(){renderFolderNavigation();renderStats();renderFiles();renderIssues();}
+  $('language-switch').addEventListener('change',()=>{locale=$('language-switch').value==='zh-CN'?'zh-CN':'en';applyLanguage();});
+  for(const event of ['input','change']){$('q').addEventListener(event,()=>{page=0;renderFiles();});for(const id of ['category-filter','type-filter','format-filter','topic-filter','status-filter','business-filter'])$(id).addEventListener(event,()=>{page=0;renderFiles();});}
+  $('issue-filter').addEventListener('change',renderIssues);
+  $('previous').addEventListener('click',()=>{page=Math.max(0,page-1);renderFiles();});
+  $('next').addEventListener('click',()=>{page++;renderFiles();});
+  document.querySelectorAll('[data-view]').forEach(button=>button.addEventListener('click',()=>{view=button.dataset.view;document.querySelectorAll('[data-view]').forEach(x=>x.setAttribute('aria-pressed',String(x===button)));$('file-view').classList.toggle('hidden',view!=='files');$('issue-view').classList.toggle('hidden',view!=='issues');}));
+  applyLanguage();
+})();
+</script>
+</body>
+</html>
