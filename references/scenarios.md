@@ -1,49 +1,51 @@
-# 个人场景、选择题与默认配置
+# Personal scenarios, choice prompt, and defaults
 
-本技能用于个人本地资料。场景决定分类主维度、边界与查找方式；资料盘点验证方案是否适用。模板不是执行授权。
+This Skill is for personal local files. A scenario guides the main classification dimension, category boundaries, and retrieval paths; the actual inventory must verify whether the template fits. A template is not authorization to act.
 
-## 如何询问
+## Ask the user
 
-只在本次需要制定/改变分类规则且场景未知时问：**“这批资料主要用于什么？请选择最接近的场景；没有合适选项时，可以直接描述用途。”**
+Ask only when a classification is being created or changed and the purpose is unknown:
 
-| 常用选项 | 主维度与模板 |
+**“What are these materials mainly for? Choose the closest scenario. If none fits, describe the purpose in your own words.”**
+
+| Common choice | Main dimension and template |
 |---|---|
-| 个人综合资料（默认） | `general`：保留有效结构，多维元数据与视图定位 |
-| 项目工作资料 | `work`：项目 → 环节/成果 |
-| 研究资料 | `research`：研究问题/主题 → 子主题 |
-| 学习资料 | `learning`：学习目标/课程 → 知识主题 |
-| 个人事务资料 | `personal`：事务领域 → 具体事项 |
-| 没有偏好，使用默认方案 | 明确采用 `general`；仍遵守本轮目录、内容和写入授权 |
+| General personal files (default) | general: preserve useful structure; find materials through metadata and saved views |
+| Project work | work: project → stage/deliverable |
+| Research | research: research question/topic → subtopic |
+| Learning | learning: learning goal/course → knowledge topic |
+| Personal affairs | personal: area of responsibility → specific matter |
+| No preference; use the default | Explicitly select general, while still respecting this session’s scope, content, and write permissions |
 
-以上都不适合时，请用户手动输入用途、常见查找问题或保留偏好；用 `custom` 模板补全，而非强塞进已有场景。有选择题控件时使用其自由输入功能，不重复增加“其他”占位选项；普通文本对话可在选项后明确自由输入入口。
+If none fits, let the user enter a purpose, common retrieval questions, and preservation preferences. Use the custom template and complete its boundaries rather than forcing a preset. If a choice widget provides free text, use it; in plain chat, explicitly invite a custom answer after the options.
 
-已确认场景/规则不重复询问。只读查询无需先完整配置场景。用户明确说“你决定/按默认整理”且任务与授权已明确，可声明采用默认并继续；没有答复不能视为默认选择或操作授权。仅场景偏好未知时，可继续已授权的盘点/索引，暂停依赖用途判断的归属或移动。
+Do not re-ask a confirmed scenario/rule. Read-only search does not require full scenario setup. If the user says “you decide” or “use the default” and the task and permissions are clear, state that general will be used and continue. No answer is not a default selection or operation authorization. If only the scenario preference is unknown, continue already authorized inventory/indexing and pause only placement/move decisions that depend on purpose.
 
-## 默认配置
+## Default configuration
 
-`assets/policy-presets.json` 提供候选模板与 19 个基础词条。通用元数据区分 resource_type（文本/数据集等）、document_type（合同/报告等）、format（PDF等）、topic、project、source。未知字段不填默认事实；业务生命周期使用独立命令，标签不自动控制归档/删除。
+assets/policy-presets.json contains candidate templates and 19 starter terms. General metadata separates resource_type (text/dataset etc.), document_type (contract/report etc.), format (PDF etc.), topic, project, and source. Do not invent unknown facts. Business lifecycle is managed separately; tags do not automatically trigger archive/delete operations.
 
-默认保留有效目录结构和完整工程，优先生成类型/主题浏览入口；需要建立新树时根据实际材料采用较少且有定义的大类，不预建所有空目录。编号偏好是推荐，不触发自动改名。格式浏览视图不会把同一项目的不同格式文件拆开。分类与物理位置可分开管理。
+By default, preserve a useful folder structure and intact software projects; provide type/topic navigation through metadata. If a new tree is needed, create a small number of defined top-level categories based on the actual materials; do not pre-create every possible empty folder. Numbering is a recommendation and never triggers an automatic rename. A format view does not split one project into separate trees by extension. Logical classification can differ from physical location.
 
-混合库允许不同分支有不同主维度，同级保持一致；scenario.branches 记录分支相对路径、dimension 与 definition。更深分支覆盖其父分支的维度，无法判定时保留位置并列待确认。分类树仍使用 taxonomy 的 category_id/definition/includes/excludes，场景不能代替具体类别。
+A mixed library can use different main dimensions in different branches, recorded by scenario.branches with relative path, dimension, and definition. A deeper branch overrides its parent. If placement is unclear, keep the item in place and flag it for review. The taxonomy still needs category_id, definition, includes, and excludes; a scenario does not replace concrete category rules.
 
-## 脚本流程
+## Script workflow
 
-所有命令使用本 Skill 的 `scripts/folderdb.py` 绝对路径。
+Use the absolute path to this Skill’s scripts/folderdb.py.
 
-```text
-policy-template --root "<库>" --preset general
-policy-get --root "<库>"
-scenario-check --root "<库>" --input "<场景JSON>"
-scenario-apply --root "<库>" --input "<场景JSON>" --reason "用户明确选择个人综合场景" --expected-revision none --execute
-```
+~~~text
+policy-template --root "<library>" --preset general
+policy-get --root "<library>"
+scenario-check --root "<library>" --input "<scenario.json>"
+scenario-apply --root "<library>" --input "<scenario.json>" --reason "User selected general personal files" --expected-revision none --execute
+~~~
 
-template 不要求已建库且不写入。其他入口要求已管理的库；首次按已有授权 scan 初始化。input 接受单独 scenario 对象或模板输出中的 scenario 字段。预览会返回 current_revision；已有规则替换时 execute 必须提供该修订，并使用新的 document.version。默认不加 execute 就只预览。
+template does not require a managed library and does not write. Other commands require a managed library; initialize it with scan only if already authorized. Input accepts a scenario object or a template result containing scenario. Preview returns current_revision. Replacing an existing rule requires that revision and a new document.version. Without execute, the command only previews.
 
-SQLite meta.policy_scenario 保存生效规则。`policy-get` 可导出 JSON 审阅；旧 rules.json 的用户有效约定继续保留，先解释并合并，不覆盖原文件。场景变更记录历史，仅把受影响分类列为待复核，不移动原文件。与 taxonomy 的具体类别修订、词表修订、文档版本分别管理。
+SQLite meta.policy_scenario stores the active rule. policy-get can export it for review. Preserve valid user conventions in legacy rules.json; explain and merge them rather than overwriting. Scenario changes are versioned and flag affected classifications for review without moving original files. Concrete taxonomy revisions, vocabulary revisions, and document versions are managed separately.
 
-## 个人反馈
+## Personal feedback
 
-用户纠正先应用于指定文件；明确说“以后都按这个规则”时才形成通用规则。定义/归属变化先预览受影响数量，再在已确认的维护范围内应用；人工位置锁保留。新资料沿用当前场景，不因本次未回答重置为默认。发现新的用途/歧义先提出局部建议。
+Apply a correction to the named files first. Treat it as a general rule only when the user says to use it going forward. Before applying changed definitions/assignments, preview the affected count and stay within the confirmed maintenance scope. Preserve user-locked locations. New materials reuse the current scenario; silence does not reset it to the default. Suggest a local rule when a new purpose or ambiguity appears.
 
-方法依据：Dublin Core 的类型/格式区分、PARA 的用途导向、Johnny.Decimal 的宽类别与编号、NN/G 渐进披露和卡片分类。默认 general 是本技能的设计，需真实资料验证，不宣称统一行业标准。来源见 [方法来源](methodology.md)。
+Method sources include Dublin Core’s distinction between type and format, PARA’s purpose-oriented organization, Johnny.Decimal’s broad categories/numbering, and NN/g’s progressive disclosure and card sorting. General is this Skill’s design, must be checked against actual files, and is not a universal industry standard. See [Methodology and sources](methodology.md).

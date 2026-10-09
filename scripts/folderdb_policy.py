@@ -52,14 +52,14 @@ def vocabulary(con):
     terms = {}
     for row in con.execute("SELECT * FROM tag_vocabulary ORDER BY facet,tag_id"):
         terms[(row["facet"], row["tag_id"])] = {"facet": row["facet"], "id": row["tag_id"],
-            "label": row["label"], "aliases": json.loads(row["aliases_json"]), "definition": "旧版词条，定义待补充",
+            "label": row["label"], "aliases": json.loads(row["aliases_json"]), "definition": "Legacy vocabulary term; definition needs review",
             "broader": [], "related": [], "status": "active", "replaced_by": None}
     # Recover aliases omitted by legacy last-writer updates without choosing new meanings.
     for row in con.execute("SELECT profile FROM files WHERE profile IS NOT NULL"):
         for tag in json.loads(row[0]).get("tags", []):
             key = (tag["facet"], tag["id"])
             item = terms.setdefault(key, {"facet": tag["facet"], "id": tag["id"], "label": tag["label"],
-                "aliases": [], "definition": "旧版词条，定义待补充", "broader": [], "related": [], "status": "active", "replaced_by": None})
+                "aliases": [], "definition": "Legacy vocabulary term; definition needs review", "broader": [], "related": [], "status": "active", "replaced_by": None})
             candidates = [tag["label"], *tag.get("aliases", [])]
             known = {norm(item["label"]), *map(norm, item["aliases"])}
             for candidate in candidates:

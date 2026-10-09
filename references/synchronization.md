@@ -1,37 +1,37 @@
-# 按实际改动增量同步
+# Incremental synchronization from observed changes
 
-## 三种触发方式
+## Three trigger modes
 
-1. **调用时刷新（默认）**：每次维护/查询前用 `status` 查看文件大小、mtime_ns、路径与目录快照；有变化且当前授权包含维护时用 `refresh`，默认 fast 扫描变化项并重建 Markdown/HTML。只读查询报告变化而不写库。
-2. **定期重扫（宿主具备并获用户授权）**：宿主调度运行同一流程。扫描与索引独立于模型；语义分类需要真实可运行的智能体任务。
-3. **文件监听（宿主具备并获授权）**：合并/去抖事件，源文件稳定后重扫。监听漏事件、休眠、批量粘贴或程序崩溃都通过下次快照对账修复。不要在 Skill 中声称创建了不存在的后台服务。
+1. **Refresh on invocation (default):** before maintenance/search, use status to compare file size, mtime_ns, paths, and directory snapshots. If changes exist and this session is authorized for maintenance, run refresh. Fast mode processes changes and rebuilds Markdown/HTML. A read-only query reports changes without writing the library.
+2. **Scheduled rescans (only when the host supports them and the user authorizes them):** let the host run the same flow. Inventory/indexing is independent of the model; semantic classification requires a real agent task.
+3. **File watcher (only when the host supports it and the user authorizes it):** coalesce/debounce events, wait for source files to stabilize, then rescan. Missed events, sleep, bulk paste, or a process crash are reconciled against the next snapshot. Never claim that this Skill created a background service when it did not.
 
-`status` 是便宜的路径/大小/时间比较，不能发现保留同样大小和时间戳的字节改动。`refresh` 默认 fast 仅复用元数据未变化文件的上次哈希；`refresh --full` 或默认 `scan` 对所有纳入文件重新算哈希，只重解析内容变化者。读取原文/严格事实前 `dump` 再验证源哈希。大库可由宿主优化事件处理，但周期性完整对账仍需要。
+status is a cheap path/size/time comparison. It cannot detect byte changes that retain the same size and timestamp. Fast refresh reuses hashes only for files whose metadata has not changed; refresh --full or the default scan recomputes hashes for all included files and reparses only changed content. Before citing source facts, use dump to recheck the live source hash. A host may optimize large-library event handling, but periodic full reconciliation is still needed.
 
-长扫描可通过 `--batch-size` 形成可恢复扫描任务。当前调用处理有限项目，输出 `job_id`；宿主或智能体使用同一选项反复调用，并在恢复时传 `--job-id`。SQLite 暂存任务输入、阶段和解析缓存；`status` 报告 `pending_scan_job`。任务在 process/verify 阶段不会修改已发布的活动文件清单；最后核对目录快照、数据库基线与源内容后一次提交。变化冲突返回 `stale`，旧索引/清单保持可用，修复源后重新开始。该机制是调用方驱动的续跑，不是常驻任务，也不保证桌面应用关闭后自动继续；整个目标目录的一致快照也受本地文件系统并发写入限制，提交前会再次校验以发现冲突。
+Long scans can use --batch-size to create a resumable job. Each invocation processes a bounded set and returns job_id. The host/agent calls again with the same options and supplies --job-id when resuming. SQLite stages job inputs, progress, and parse cache; status reports pending_scan_job. During process/verify, the published active inventory is unchanged. The job verifies directory snapshots, database baseline, and source content before one final publish. Conflicts return stale; the old inventory remains available, and a new scan must be started after reconciliation. This is caller-driven resumption, not a resident task, and does not guarantee continuation after the desktop closes. Concurrent filesystem writes also limit snapshot consistency; validate again before publishing.
 
-## 事件的实际含义
+## What events mean
 
-| 实际变化 | 清单与内容 | 分类与索引 |
+| Observed change | Inventory and content | Classification and indexes |
 |---|---|---|
-| 新文件 | 新 ID、哈希、解析状态 | 新建识别队列，不直接搬动 |
-| 内容修改 | 同路径保留 ID、新哈希；旧档案失效 | 重新识别；人工位置锁保留 |
-| 手动改名/移动 | 唯一旧缺失与新新增且哈希相同可关联 | 更新路径，设置位置锁；不自动搬回 |
-| 改名且修改内容 | 没有稳定系统 ID 时不能确认身份 | 按缺失+新增处理，关系待确认 |
-| 多份同哈希 | 不能唯一判定迁移 | 独立记录，保留歧义，不自动合并 |
-| 用户明确要求精确去重 | 先重新验证重复组与保留项 | 其他副本同卷移动到 `.filedb/quarantine/<run-id>/`；排除普通搜索/索引，日志可恢复 |
-| 隔离项恢复 | 恢复前核对隔离内容和原位置 | 更新清单/索引；目标冲突或隔离内容变化时停止 |
-| 文件删除 | missing 历史 | 从活动索引移除，不删其他文件 |
-| 文件夹变化 | 同步空/非空目录快照 | 重建集中式导航；旧版子目录索引仅在登记哈希一致时移动到库内备份 |
-| 人工编辑索引 | 索引哈希与上次生成不同 | 保留并报冲突，不覆盖 |
-| 规则/分类改动 | taxonomy 版本提升 | 明确受影响范围，人工锁仍有效 |
+| New file | New ID, hash, parse state | Add to identification queue; do not move it |
+| Changed content | Keep ID at same path; record new hash and invalidate old profile | Re-identify; keep user-locked location |
+| Manual rename/move | Link only if exactly one missing + one new path share a hash | Update path and set location lock; do not move back automatically |
+| Rename and content change | No stable OS ID proves identity | Treat as missing + new; leave relation for review |
+| Several same-hash copies | Migration identity is ambiguous | Keep separate records; do not auto-merge |
+| User explicitly requests exact deduplication | Revalidate duplicate group and keeper | Move other copies on the same volume to .filedb/quarantine/<run-id>/; exclude from ordinary search/index and log recovery |
+| Restore a quarantined item | Verify quarantined bytes and original path availability | Update inventory/index; stop on destination conflict or changed bytes |
+| File removed from scan | Keep missing history | Remove from active index; do not delete other files |
+| Folder change | Update empty/nonempty folder snapshot | Rebuild centralized navigation; move old child indexes only if registered hash matches |
+| Manual index edit | Generated-index hash differs from last recorded hash | Preserve it and report conflict |
+| Rule/classification change | Increment taxonomy revision | Identify affected files; keep location locks |
 
-不能因临时读取失败而把整个目录内容误判为删除：扫描遇到无法枚举目录即中止这轮发布，保留上次清单。单个文件不稳定单独记错，不复用其旧事实。
+A temporary read failure must not make an entire directory look deleted. If a directory cannot be enumerated, abort publication of that scan and retain the previous inventory. Record an unstable individual file as an issue; do not reuse old facts as current.
 
-## 待处理与一致性
+## Pending review and consistency
 
-源变更时可立即发布“待重新识别”的索引，不能继续把旧摘要当作有效内容。`annotate` 必须携带扫描时的 `source_sha256`，导入前核对磁盘；不匹配时重新扫描和识别。`refresh` 只更新盘点和派生视图，不会自动编造分类或调用后台模型。
+When a source changes, the index may mark it “needs re-identification” immediately; do not present the old summary as current. annotate must include the scan-time source_sha256 and compare it with the live file before import. If it differs, rescan and reclassify. refresh updates inventory and derived views only; it does not invent classifications or call a background model.
 
-磁盘是文件存在、路径和字节的依据，清单是索引/标注的状态，Markdown 是生成导航。执行计划、待分类队列和生成索引都不能自行重建用户已删除的原文件。
+The disk is authoritative for file existence, paths, and bytes. The inventory is authoritative for indexed/annotation state. Markdown is generated navigation. Plans, classification queues, and indexes cannot reconstruct user-deleted source files.
 
-后台更新只使用用户允许的目录和动作。现有建库授权支持清单刷新；新增文件移动、全库重分类或规则改变导致搬迁不自动获得授权。用户明确提出某范围内的整理/去重时，且分类规则与操作目标已确定，可按经校验的计划自动改名、移动或隔离；永久删除独立执行，必须取得针对具体文件/文件夹的明确同意。
+Background updates use only user-authorized directories/actions. Existing library-creation authorization permits inventory refresh. It does not authorize moving new files, reclassifying the whole library, or moving files due to rule changes. A clear request to organize/deduplicate a defined scope authorizes execution of a validated rename/move/quarantine plan. Permanent deletion is separate and requires explicit consent for the specific file/folder.

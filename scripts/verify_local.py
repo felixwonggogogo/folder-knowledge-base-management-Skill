@@ -152,13 +152,13 @@ class FolderDBChecks(unittest.TestCase):
         page = db.navigate(self.root, "10-项目/客户A")["folder"]["index_page"]
         self.assertIsNotNone(page)
         text = (self.root / page).read_text(encoding="utf-8")
-        self.assertIn("上级目录", text)
-        self.assertIn("总导航", text)
-        self.assertIn("主分类未确认 1", (self.root / "AI_INDEX.md").read_text(encoding="utf-8"))
+        self.assertIn("Parent folder", text)
+        self.assertIn("Root index", text)
+        self.assertIn("classification review: 1", (self.root / "AI_INDEX.md").read_text(encoding="utf-8"))
         readme = (self.root / "AI_README.md").read_text(encoding="utf-8")
         self.assertIn("children_next_offset", readme)
         self.assertIn("navigate", readme)
-        portal = (self.root / "文件知识库.html").read_text(encoding="utf-8")
+        portal = (self.root / "file-knowledge-base.html").read_text(encoding="utf-8")
         payload = json.loads(portal.split('<script id="kb-data" type="application/json">', 1)[1].split('</script>', 1)[0])
         self.assertEqual(payload["stats"]["semantic_review_required"], 1)
         self.assertEqual(next(n for n in payload["directories"] if n["path"] == "10-项目")["subtree_files"], 1)
@@ -655,15 +655,15 @@ class FolderDBChecks(unittest.TestCase):
         self.assertTrue((self.root / "AI_INDEX.md").is_file())
         self.assertTrue((self.root / "AI_README.md").is_file())
         self.assertTrue((self.root / "README.md").is_file())
-        self.assertTrue((self.root / "文件知识库.html").is_file())
+        self.assertTrue((self.root / "file-knowledge-base.html").is_file())
         self.assertTrue((self.root / ".filedb/manifest.json").is_file())
         self.assertFalse((self.root / "项目A/AI_INDEX.md").exists())
         self.assertEqual(result["portal_files"], 1)
-        portal = (self.root / "文件知识库.html").read_text(encoding="utf-8")
+        portal = (self.root / "file-knowledge-base.html").read_text(encoding="utf-8")
         self.assertIn("项目A/预算.txt", portal)
         with contextlib.closing(db.connect(self.root)) as con:
             indexed = {r[0] for r in con.execute("SELECT path FROM indexes")}
-        self.assertTrue({"AI_INDEX.md", "AI_README.md", "文件知识库.html", ".filedb/manifest.json"}.issubset(indexed))
+        self.assertTrue({"AI_INDEX.md", "AI_README.md", "file-knowledge-base.html", ".filedb/manifest.json"}.issubset(indexed))
 
     def test_portal_embedded_json_escapes_script_boundary_and_omits_cached_body(self):
         self.write("danger.txt", "普通正文")
@@ -673,7 +673,7 @@ class FolderDBChecks(unittest.TestCase):
         annotation["files"][0]["summary"] = "</script><script>alert(1)</script>"
         db.annotate(self.root, annotation)
         db.build_index(self.root)
-        html = (self.root / "文件知识库.html").read_text(encoding="utf-8")
+        html = (self.root / "file-knowledge-base.html").read_text(encoding="utf-8")
         self.assertNotIn("</script><script>alert", html)
         self.assertIn("\\u003c/script", html)
         self.assertNotIn('"text":"普通正文"', html)

@@ -1,36 +1,35 @@
-# 澄清与授权门
+# Clarification and authorization gates
 
-本 Skill 必须先理解用户想做什么，再对用户指定目录采取具体操作。沟通用于消除会影响范围、数据访问或文件变更的歧义；不要求用户重复已经清楚表达的内容。
+Understand the user’s intent before taking specific action on their selected directory. Ask questions only to resolve ambiguity that changes scope, data access, or file changes. Do not ask users to repeat clear instructions.
 
-## 动手前确认什么
+## What to clarify before acting
 
-结合当前对话，只补问尚未明确且会改变执行结果的项目：
+Use the conversation and ask only about missing decisions that affect execution:
 
-1. **目标**：确切的本地根目录、纳入/排除哪些子目录或文件类型。不得默认当前工作区、桌面、下载目录或 Skill 所在仓库就是目标。
-2. **任务**：创建/查询/维护知识库，还是提出分类和整理计划，或实际改名/移动文件。泛称“整理”“看看”不足以确定操作模式。
-3. **内容访问**：哪些资料可以在当前智能体会话中读取和分析；仅本地访问不代表可以发往其他服务。
-4. **写入与文件操作**：是否创建或更新 `.filedb`、`AI_INDEX.md` 等知识库派生物；若实际整理/去重，确认对象范围和规则。用户明确要求在该范围内整理、改名、移动或去重，且目标/规则可执行时，即授权本轮按校验通过的计划自动执行，不再逐项询问。
-5. **删除**：任何永久删除用户文件或文件夹，都要针对准确路径/项目取得明确同意；“整理”“去重”“清理”或一般移动授权不构成删除授权。精确重复项默认移动至可恢复隔离区，不永久删除。
+1. **Target:** exact local root and included/excluded folders or file types. Do not assume the workspace, Desktop, Downloads, or Skill repository is the target.
+2. **Mode:** create, search, maintain, propose a classification/organization plan, or actually rename/move files. A broad request such as “organize this” or “take a look” does not identify the mode.
+3. **Content access:** what materials may be read and analyzed in this agent session. Local access does not authorize sending them to another service.
+4. **Writes and file operations:** may the Skill create/update .filedb, AI_INDEX.md, and other derived knowledge-base files? For actual organization/deduplication, is the target scope and rule clear? A clear request to organize, rename, move, or deduplicate a defined scope authorizes this session to execute a validated plan without per-item approval.
+5. **Deletion:** obtain explicit consent for the exact targets and deletion action before permanently deleting any user file or folder. “Organize,” “deduplicate,” “clean up,” and general move authorization do not authorize deletion. Exact duplicates are moved to recoverable quarantine by default.
+6. **Purpose:** when creating/changing classification rules and the purpose is unknown, offer the common choices: general personal files (default), project work, research, learning, personal affairs, or no preference/use the default. Provide a free-text option if none fits. Reuse a confirmed scenario. Read-only search does not need scenario setup. The user may explicitly delegate selection of the general scenario; no response is not a choice and does not add authorization. See [Scenarios](scenarios.md).
 
-6. **用途场景**：首次制定分类且用途未知时提供选择题：个人综合资料（默认）、项目工作、研究、学习、个人事务、没有偏好使用默认。没有匹配项时使用自由输入，让用户描述；已有场景直接复用，不重复问。只读查询不需要先配置场景。用户明确委托默认可采用 general；没有答复不视为选择，不补足授权。详细交互见 [场景](scenarios.md)。
+Apply the same gate to versions and lifecycle. A clear request to maintain knowledge-base metadata can update business states and version records. Designate a current version only from the user's explicit selection, confirmed rules, or evidence in the source. Run snapshot --execute only after an explicit request to keep a recoverable content copy. Run restore-copy --execute only after an explicit request to restore to a new unused path. An ordinary index write does not authorize copying document bodies in bulk. A due review date or business archive does not authorize deletion, and historical snapshots are never cleaned automatically. If a decision is missing, pause only the action that depends on it; continue authorized indexing and search.
 
-版本与生命周期按同一门控制：明确的知识库元数据维护请求可更新业务状态与版本记录；当前版本的指定需要用户明确选择或已确认规则/正文依据。只有用户明确要求保存可恢复的正文版本才运行 snapshot --execute，明确要求恢复至新的空闲路径才运行 restore-copy --execute。普通索引写入不授权批量复制正文，复核到期或业务归档不授权删除，历史快照也不自动清理。缺项时只暂停依赖该缺项的动作，继续已授权的索引与检索。
+Bundle high-impact questions instead of asking a chain of low-impact preference questions. Offer a conservative proposal when useful, but do not treat a proposal or default as authorization before the user responds.
 
-一次性合并高影响问题，不连环追问低影响偏好。可先提供保守方案供用户选择；用户未回答前，不把方案或默认值当作授权。
+## Stop rules when information is missing
 
-## 未明确时的停止规则
+- **Root is unclear:** do not run status, scan, search, or content reads against candidate directories. General capability checks unrelated to the target may continue.
+- **Mode or scope is unclear:** identify the ambiguity and ask; do not initialize a database, create indexes, classify, or move files.
+- **Write permission is unclear:** limit work to authorized read-only inspection or a plan. Do not create .filedb, AI_INDEX.md, rules, or capability records.
+- **Model access to content is unclear:** do not read document bodies. You may report file-name/format preparation needs and wait for a content-access decision.
+- **Rename/move/deduplication scope or rule is unclear:** provide candidates and a per-item plan; do not execute. A plan file is itself a write, so save it only to an authorized location or show it in the response.
+- **Deletion lacks consent for the exact target/action:** do not delete or interpret silence/refusal as consent. Continue separately authorized reversible moves or indexing.
 
-- 根目录不明确：不对候选目录运行 `status`、`scan`、搜索或内容读取；可继续与目标资料无关的能力检查。
-- 模式或范围不明确：只说明识别到的歧义并询问，不初始化数据库、不生成索引、不分类、不移动。
-- 写入权限不明确：只读检查或交付计划；不要创建 `.filedb`、`AI_INDEX.md`、规则文件或能力记录。
-- 是否可读入模型不明确：不读取正文；可先报告文件名/格式层面的准备条件，待用户确定内容访问范围。
-- 改名/移动/去重范围或规则不明确：输出候选方案和逐项计划，不执行。计划文件本身也属于写入，应放在已授权位置或只在回复中展示。
-- 删除目标/动作未得到明确同意：不删除，也不把拒绝或未回答解释成同意；继续可逆移动/索引等已授权部分。
+## Continue after clarification
 
-## 明确后怎样继续
+Restate the confirmed root, mode, and allowed side effects, then use the smallest sufficient workflow. A clear request for a concrete, fully scoped operation can itself be authorization; do not ask again. Related actions that were not requested remain unauthorized. For example, “create a knowledge base in D:\Files” permits writing its own indexes but not moving materials; “organize and deduplicate D:\Files\Contracts” permits validated renames/moves and quarantine of exact duplicates but not permanent deletion; “find contracts in D:\Files” permits read-only search but not a database write.
 
-复述一遍本轮确认的根目录、任务模式和允许的副作用，然后按最小必要步骤推进。用户明确要求某个具体、范围完整的操作时，这句话本身可构成本轮授权，不再重复确认；未明确要求的关联操作仍未获授权。例如，“在 `D:\资料` 建知识库”可以写入该库自有索引，但不代表可以移动资料；“整理并去重 `D:\资料\合同`”在对象和范围明确后可自动重命名、移动及把完全相同项移入隔离区，但不授权永久删除；“查询 `D:\资料` 中的合同”可以只读检索，不代表可以写入数据库。
+If inventory reveals a new ambiguity (overlapping categories, name conflicts, permission failures, or newly discovered files in a move plan), pause only the affected part. Report completed and unexecuted work, then ask about the new decision. Do not expand scope because a batch has started.
 
-如果盘点后出现新歧义（例如类别交叠、同名冲突、权限错误或移动计划新增文件），暂停受影响的部分，报告已完成与未执行内容，再就新决策询问。不要以批次已开始为由扩张授权范围。
-
-用户改变目标时，以最新明确指令更新本轮范围；确认新的路径或授权前，停止依赖旧目标的操作。
+If the user changes the target, update the current scope to the latest explicit instruction. Stop actions that depend on the old target until the new path or permission is clear.

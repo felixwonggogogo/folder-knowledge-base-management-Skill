@@ -1,6 +1,0 @@
-interface:
-  display_name: "AI Local File Knowledge Base"
-  short_description: "Organize, maintain, and search personal files locally"
-  default_prompt: "Use $folder-knowledge-base to create, organize, maintain, or search a user-selected local file knowledge base; clarify scope and permissions before acting."
-policy:
-  allow_implicit_invocation: true

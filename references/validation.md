@@ -1,35 +1,37 @@
-# 验证记录与验收边界
+# Validation record and acceptance boundaries
 
-版本：0.7.0；日期：2026-10-09。
+Version: 0.7.0. Date: 2026-10-09.
 
-## 本地脚本验收
+## Local script verification
 
-`scripts/verify_local.py` 在 Python 3.11.9 下对一次性合成目录运行：70 项通过、0 失败、0 跳过。覆盖新旧库识别、schema 迁移、fast/full 扫描、可恢复分批扫描、目录或源内容变化时阻止部分发布、复杂解析器超时和重试、查询/保存视图、分类规则影响预览、精确重复与可恢复隔离、文件/目录移动恢复、目录链接保护、后台监听启停以及 AI/人类入口生成。
+The source Skill's scripts/verify_local.py ran against a disposable synthetic directory on Python 3.11.9: 70 passed, 0 failed, 0 skipped. Coverage included new/legacy library recognition, schema migration, fast/full scans, resumable batch scans, preventing partial publish after source/directory changes, parser timeouts/retries, queries/saved views, classification-rule impact previews, exact duplicates/recoverable quarantine, file/folder move recovery, symlink protection, watcher start/stop, and AI/human entry-point generation.
 
-新增验证覆盖分层导航的独立分页、空目录/前缀碰撞、目录计划生成/保存与恢复、库内入站编码链接、无档案语义漏计、版本组当前标记/内容变化失效、归档检索、历史元数据、正文快照及恢复新副本、并发创建目标保护、旧 schema-2 零写入读取与兼容扩展、去重保护业务版本及超过 100 组的全量计划。
+Additional checks covered independent pagination for layered navigation; empty folders/prefix collisions; directory-plan generation, save, and recovery; inbound encoded links; missing-profile semantic accounting; version-group current markers/content-change invalidation; archive retrieval; historical metadata; content snapshots/recovery copies; concurrent destination protection; read-only schema-2 compatibility; business-version protections for duplicate groups; and plans spanning more than 100 groups.
 
-`scripts/verify_policy.py` 新增15项合成检查：六类个人场景模板；模板/读取/检查零写入；修订与版本冲突；新别名命中旧档案（含全半角、英文别名部分词）；公共词表不可被标注覆盖；跨分面歧义；同分面别名冲突；循环/引用/深度；停用替代与复核；历史/恢复；场景变更保留用户位置锁和正文；资料类型/格式与保存视图；旧库别名兼容；CLI预览/应用。与原70项合计85项；以交付目录中的最终执行日志为验收证据。
+scripts/verify_policy.py added 15 synthetic checks: six personal-scenario templates; zero-write template/read/check behavior; policy revision/version conflicts; new aliases matching old profiles (including full/half-width and English partial terms); protection of governed vocabulary from annotation edits; cross-facet ambiguity; same-facet alias conflicts; cycles/references/depth; deprecated replacements/review; history/restore; scenario changes respecting location locks and content; document type/format and saved views; legacy alias compatibility; and CLI preview/apply. Total: 85 checks, based on the final execution receipt in the source delivery.
 
-扫描验证包含：CLI 使用 `--batch-size/--job-id` 续跑；未完成时活动目录清单不变；检测到新增文件或保留大小/时间戳但字节变化时返回 `stale`；`refresh` 只有扫描完成后才生成新索引。PDF/Office XML 子进程超时进入 `read_error` 并保留具体原因；纯文本仅有字节/字符界限，不声明单文件墙钟超时。
+Scan verification covered CLI resumption with --batch-size/--job-id; unchanged active inventory until completion; stale results after added files or byte changes with unchanged size/timestamp; and refresh rebuilding indexes only after scan completion. PDF/Office XML subprocess timeouts become read_error with a specific cause; plain text has byte/character limits but no claimed per-file wall-clock timeout.
 
-命令：
+Command:
 
-```text
+~~~text
 python -B -X utf8 "<skill-dir>/scripts/verify_local.py"
-```
+~~~
 
-## 检索基准与浏览器验收
+## Search benchmark and browser verification
 
-- `scripts/benchmark_search.py`：4 个合成中文查询，SQLite FTS5 trigram 可用，宏/微召回率均为 1.0，所有命中来源均新鲜。该结果只代表固定的合成夹具，不推断真实语料的准确率，也不是向量或语义检索。
-- `scripts/verify_portal_browser.py`：本地 Chromium 145.0.7632.6；真实生成页与 10,000 条合成元数据页面通过，40 行分页；公共词表的新别名搜索、主题/资料类型/格式组合筛选、场景与词表版本展示，以及逐层目录、面包屑、仅本目录/含子目录、空目录、文件 ID、生命周期筛选、搜索、键盘详情、复制回退、问题视图、390px窄屏和无脚本提示；0外部请求、0控制台/页面错误。合成业务证据不推断用户真实材料质量。
-- `scripts/folderdb_watch.py`：临时合成库启停、状态、日志和增量对账测试通过。监听默认关闭，不注册系统服务/计划任务，不调用模型或改动原文件。
+- scripts/benchmark_search.py: four synthetic Chinese queries; SQLite FTS5 trigram was available, macro/micro recall were 1.0, and all hit sources were fresh. This result applies only to the fixed synthetic corpus. It does not establish accuracy on real files and is not vector/semantic search.
+- scripts/verify_portal_browser.py: local Chromium 145.0.7632.6. The actual generated page and a 10,000-record synthetic metadata page passed checks for 40-row pagination; new governed aliases; topic/type/format filters; scenario/vocabulary revision display; layered folders/breadcrumbs/current-folder vs subtree scope; empty folders; file IDs; lifecycle filters; search; keyboard details; copy fallback; issue view; 390px narrow layout; and no-script notice. There were zero external requests and zero console/page errors. Synthetic business evidence does not establish user-material quality.
+- scripts/folderdb_watch.py: lifecycle, status, log, and incremental reconciliation checks passed on a temporary synthetic library. Watching is off by default, registers no system service/task, calls no model, and changes no source file.
 
-## SkillHub 本地静态测试与运行时模拟
+These historical checks were run against the Chinese-language source Skill before this English release. They cover script behavior on synthetic fixtures, but do not independently verify the English instructions, translations, or every documented workflow.
 
-本地 SkillHub 资产测试覆盖 normal、boundary、rejection，当前15个案例；新增场景选择题、手动输入、未回答不补足授权、公共别名检索和歧义词拒绝合并。无模型 Host Surface 模拟使用相同15个入口契约；模拟禁用外网且 model_hit_rate=null，只证明本地声明、资源路径和读取契约，不代表真实模型问答、分类或界面选择行为。通过数量及资源/路由代理指标以最终回执为准。每次发布使用对应版本回执的ZIP SHA-256。
+## SkillHub static tests and runtime simulation in the source package
 
-资产发布审计对 `references/workflows.md` 中的合规风险词给出一条非阻断复核提示；该提示来自目录/移动授权与“不删除”边界的文字，不是脚本错误。需人工确认文本与授权门一致。
+The local SkillHub asset test covered normal, boundary, and rejection cases, currently 15 examples. Added cases covered scenario choice, custom input, no inferred authorization from silence, governed-alias search, and refusal to merge ambiguous terms. A model-less Host Surface simulation used the same 15 entry contracts with external network disabled and model_hit_rate=null. It establishes only local declarations, resource paths, and read contracts; it does not establish real model answers, classification, or UI choice behavior. Use the final receipt for pass counts and resource/routing proxies. Each release is tied to the ZIP SHA-256 in its receipt.
 
-## 限制
+A release audit of references/workflows.md emitted one non-blocking review note for compliance-risk wording about directory/move authorization and “no deletion.” This was a textual review prompt, not a script failure; a human should verify alignment with the authorization gate.
 
-这些结果不证明目标桌面应用的导入、跨机器兼容性、真实模型分类质量、OCR/PDF 全格式质量、长时间无人值守运行或独立备份恢复能力。SkillHub 平台导入、审核、发布和真实行为未验证；本轮升级的改名/移动/生命周期/快照测试均在临时合成库，不操作真实用户资料。历史真实目录中的扫描/建索引经历不等于内容分类验收，真实库任务仍需单独复核规则、原文及检索效果。
+## Limits
+
+These results do not establish desktop-app import, cross-machine compatibility, real-model classification quality, OCR/PDF coverage for every format, unattended long-running operation, or independent backup/recovery. SkillHub import/review/publishing and real runtime behavior were not verified. Rename/move/lifecycle/snapshot checks ran only in temporary synthetic libraries, not user materials. Earlier scans/indexing of real directories do not constitute content-classification acceptance. A real library still requires review of rules, source text, and retrieval results.

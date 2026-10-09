@@ -1,56 +1,56 @@
-# 人与 AI 共用的分类导航
+# Navigation for people and AI
 
-## 先选归档用途，再选结构
+## Choose the purpose before the tree
 
-实际工作库优先按工作目标组织，研究资料库优先按主题组织；沿用用户有效结构。每层只有一个主要划分维度，说明类别的定义、包含/排除范围和重叠优先级。一个文件一个物理主要归属，跨项目/主题用分面标签、关系与保存视图。目录最多几层不是硬限制；一般文档优先较浅的两到三层，代码/媒体工程保持其内部结构，不为浅层目录或编号打散。
+Organize a work library around work goals; organize research material around topics. Reuse valid user structures. Each level should have one primary dimension and clear definitions, inclusion/exclusion boundaries, and overlap precedence. A file has one physical primary location; cross-project/topic discovery uses faceted tags, relationships, and saved views. There is no hard maximum depth, but ordinary documents generally benefit from a shallow two- or three-level tree. Preserve the internal structure of code and media projects instead of flattening them for shallow paths or numbering.
 
-编号是可选的人类浏览码，category_id 是逻辑类别 ID，file_id 是文件 UUID，path 是当前位置，SHA-256 是字节版本。不要以编号替代 ID、以哈希替代文件身份，或以编号范围猜文件内容。物理目录页的路径哈希会随改名变动，不是永久目录 ID。
+Numbering is an optional human browsing aid. category_id is the logical category ID; file_id is the file UUID; path is the current location; SHA-256 identifies observed bytes. Do not substitute a number for an ID, a hash for file identity, or infer content from a number range. A physical directory-page hash changes when its path changes; it is not a permanent folder ID.
 
-## 编号＋名字的适用规则
+## When to use number + name
 
-1. 用户已定义编号或命名习惯时优先沿用；没有时大类建议 `10-项目交付`、`20-经营管理`、`30-研究资料`、`40-学习资料`。这些只是结构示例，不是所有资料库必须套用的类别。
-2. 一级按 10、20、30 分配以留间隔。二级只有需要固定顺序时才用本地序号，如 `01-合同`、`02-交付`；局部 `01` 必须带完整上级路径，不具有全库唯一含义。一般客户/主题名可以不编号。
-3. 编号稳定，不因排序、资料增减或改名整体重编号。新类使用空闲编号；类取消后不自动把旧编号赋给不同含义，分类规则中的 category_id 也保持稳定。两位编号耗尽时设计扩展方案，不截断数字制造碰撞。
-4. 文件名以可读且有依据的标题为主，必要时加原文日期和版本；不要求每个文件编号，不将全部标签塞进名称。“最终版”不是版本证据。
-5. 在 `.filedb/rules.json` 或已有用户规则中记录编号分配、类别 ID、定义和建议路径；这由 Skill 读取解释，helper 不自动推断编号语义。修改分配先预览影响，纳入下一次整理计划。只建库的授权不会为了编号触发改名。
-6. `00-收件待识别` 可作为用户认可的入口，`90-待确认` 可作为可选处理队列；不可读文件不自动物理搬入该队列。解析问题先在问题视图中描述原因、受影响范围、可用覆盖和解决办法，保持原位置及上下文；只有用户规则清楚且确实适合移动时才调整位置。
+1. Follow the user's established numbering/naming convention. If none exists, top-level examples include 10-Project Delivery, 20-Operations, 30-Research, and 40-Learning. These are examples, not mandatory categories for every library.
+2. Allocate top-level numbers such as 10, 20, 30 with gaps. Use local second-level numbers such as 01-Contracts and 02-Delivery only when a fixed order is useful. A local 01 has meaning only with its full parent path; it is not globally unique. Customer or topic names usually do not need numbers.
+3. Keep numbers stable. Do not renumber a tree because items were added, sorted, or renamed. Give new categories an unused number; do not automatically reuse a retired number for a different meaning. Keep taxonomy category IDs stable. If two-digit numbering runs out, design an extension instead of truncating values and creating collisions.
+4. Prefer readable, evidence-based filenames. Add source dates/versions only when known. Do not require a number on each file or stuff every tag into a filename. “Final” is not version evidence.
+5. Record number allocation, category IDs, definitions, and suggested paths in .filedb/rules.json or existing user rules. The Skill interprets these rules; the helper does not infer numbering semantics. Preview impacts before changing allocations and include changes in a later organization plan. Index-only authorization does not permit a rename just to add numbers.
+6. 00-Inbox-Unclassified may be an approved intake location; 90-Needs-Review is an optional review queue. Do not automatically move unreadable files there. Describe parser issues, affected scope, available coverage, and solutions in the issue view while preserving location/context. Move only when user rules are clear and a move is suitable.
 
-```text
-资料库/
-├── AI_README.md / AI_INDEX.md / 文件知识库.html
-├── 10-项目交付/
-│   └── 客户A/
-│       ├── 01-合同/合作协议_v2.pdf
-│       └── 02-交付/实施方案.docx
-├── 20-经营管理/
-├── 30-研究资料/
-└── 40-学习资料/
-```
+~~~text
+Library/
+├── AI_README.md / AI_INDEX.md / file-knowledge-base.html
+├── 10-Project Delivery/
+│   └── Customer A/
+│       ├── 01-Contracts/Agreement_v2.pdf
+│       └── 02-Delivery/ImplementationPlan.docx
+├── 20-Operations/
+├── 30-Research/
+└── 40-Learning/
+~~~
 
-示例中的项目、类型、日期、状态可作为标签叠加检索，不必复制同一文件到多个分支。同级若出现项目和文件类型混用，应先修订维度与边界。
+Topics, file types, dates, and states in this example may be tags; the same file need not be copied into multiple branches. If sibling categories mix projects and file types, revise the dimension and boundaries first.
 
-## 人类查阅
+## Human browsing
 
-打开离线 HTML → 沿面包屑/子目录进入大类和小类 → 按需要选择“含子目录”或“仅本目录” → 叠加分类、文件类型、正文审阅状态筛选 → 看文件详情、复制路径/ID或打开原文件。搜索未知位置时可以回到“全部资料”，保留筛选条件会影响结果，应显示当前范围。
+Open the offline HTML portal → use breadcrumbs/child folders to enter a top-level and subcategory → choose “include subfolders” or “current folder only” → combine category, document type, and content-review filters → inspect a file’s details and copy its path/ID or open the source. For an unknown location, return to “all files.” Show the active scope because retained filters affect results.
 
-网页按真实物理目录展示，包括空目录。逻辑类别和实际位置分别显示；“分类建议路径”不能让人以为文件已经移动。分类/摘要证据与事实来源定位也是不同信息；复制路径和 ID 只是定位线索，未核验原文时不得包装成已确认的事实引用。
+The portal reflects physical folders, including empty folders. Show logical category and physical location separately; a “suggested category path” must not imply that a file was moved. Classification/summary evidence differs from factual source locators. A copied path or ID helps locate a file but is not a verified fact citation until the source is checked.
 
-## AI 的精准定位
+## Precise AI retrieval
 
-先读 AI_README 和总索引，并用 status 查变化；只读权限下直接核验源，已有维护授权才 refresh。
+Read AI_README and the root index first, then use status to check for changes. With read-only permission, verify source files directly; refresh only when maintenance is authorized.
 
-- 已知位置：navigate 根 → 对目标完整目录路径再 navigate → 读取本目录 file_id；子目录和文件分别分页。下钻只读取相关分支及其目录页，不加载全部 Markdown 导航。
-- 位置未知：query 多个关键词/同义词和标签 → 查看匹配路径 → 再 navigate 核对同目录版本/附件。跨主题问题先全库筛选，避免单个物理分类漏检。
-- 已知 ID：dump --file-id 取当前路径与哈希，回到原文件读取；不要沿旧文件名盲找。唯一同哈希的手动迁移能保留 ID，副本歧义或同时改内容可能按缺失＋新增，需要复核。
-- 回答：给出库根目录或可点击的当前完整路径＋file_id（需要追踪时）＋可验证的页码/行号/幻灯片/工作表位置。文件定位精确不等于正文定位精确；只得到文件路径时说明未获得更细位置，不制造页码。
+- **Known location:** use navigate from the root to the exact folder, then navigate that folder to get file IDs. Paginate child folders and direct files separately. Read only relevant branches/pages; do not load every Markdown index.
+- **Unknown location:** query multiple keywords/synonyms and tags, inspect matching paths, then navigate to check versions/attachments in context. For cross-topic questions, search broadly before opening one physical branch.
+- **Known ID:** use dump --file-id to obtain the current path/hash, then open the source file. Do not follow an old filename blindly. A unique same-hash manual move can retain an ID; ambiguous copies or simultaneous content changes may be treated as missing + new and need review.
+- **Answer:** cite the current full path (root-relative or clickable), file_id when useful, and a verifiable page/line/slide/sheet/section/time locator. Finding the file does not guarantee a precise body locator. If only the file path is available, state that; never invent a page number.
 
-## 容易遗漏的维护要求
+## Maintenance details that are easy to miss
 
-- 分类完成、正文审阅完成、工具解析覆盖和原文引用核验分别报告。沿用路径的 inherited 不是内容已确认；无分类档案的新文件也计入语义待审。一次检查不证明模型长期分类质量。
-- 用真实用户认可的查询/文件标签做后续检索验收集，记录找到的文件、遗漏、来源位置和证据；合成基准只验证固定夹具。版本、附件、导出格式和精确副本记录不同关系，不因相似自动合并。
-- 目录改名会影响库内外链接。目录计划给出的入站/内部文字引用是有限风险提示；工程依赖、外部快捷方式和动态路径仍需实际上下文判断。不要为维护索引自动改写用户正文。
-- 业务完成后先标记 archived/保存视图；是否物理归档由用户政策决定，归档不自动删除。PARA 可以作为工作库的可选模板，知识主题库不必强制套四目录。
-- SQLite/导航/全文抽取缓存和摘要都可能含敏感元数据。离线页面不是访问控制系统；有共享需求时明确分享范围，核查导出内容，目录权限/加密由宿主提供。标签不是权限，隐藏文件也不是权限控制。
-- 操作日志回滚解决路径恢复；SQLite 迁移备份只保护目录库记录，两者都不是原始资料的独立备份。大批调整前核查已有备份与恢复能力，报告实际限制；不自动创建外部备份或上传。
+- Report classification completion, body-review completion, parser coverage, and source-citation verification separately. Inherited classification does not mean content was reviewed. New files without records still count as semantic review pending. One check does not prove long-term model quality.
+- Build a retrieval acceptance set from user-approved queries/file labels; record found files, misses, source locators, and evidence. Synthetic benchmarks test only their fixed fixtures. Track versions, attachments, exports, and exact copies as distinct relationships; do not merge based on similarity.
+- Folder renames can affect links inside and outside the library. Directory-plan inbound/internal text references are limited-risk signals. External shortcuts, dynamic paths, encoded links, and application dependencies still require context. Do not rewrite source content to maintain indexes automatically.
+- When business work is complete, use archived state or a saved view first. Physical archiving follows user policy; archiving never triggers deletion. PARA may be an optional work-library template; a topical knowledge library need not use its four areas.
+- SQLite, navigation, extracted-text caches, and summaries can contain sensitive metadata. The offline portal is not access control. Before sharing, check scope; host controls directory permissions/encryption. Tags and hidden files are not security controls.
+- Operation-log rollback restores paths; a SQLite migration backup protects library records. Neither is an independent backup of source materials. Check existing backups/recovery ability before large changes. Do not create external backups or upload files automatically.
 
-方法来源及适用边界见 [methodology.md](methodology.md)。
+See [Methodology and sources](methodology.md) for references and boundaries.

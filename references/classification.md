@@ -1,48 +1,48 @@
-# 分类、标签与命名
+# Classification, tags, and naming
 
-## 优先级
+## Decision priority
 
-用户明确规则 → 已确认资料库规则 → 有效既有结构和上下文 → 原文内容 → 名称/路径提示。冲突时说明并保留位置。用户手动移动优先于旧自动分类；保留人工位置锁，除非用户要求重新整理。
+Explicit user rules → confirmed library rules → useful existing structure/context → source content → filename/path hints. Explain conflicts and preserve the original location. A user's manual move takes precedence over an older automated classification; keep a location lock unless the user asks to reorganize it.
 
-## MECE 与分类边界
+## MECE and category boundaries
 
-先确定用途，再选主维度：项目交付库按项目/成果用途，知识库按主题，财务资料按业务事项。同级不混用“客户A”“PDF”“2026”“已完成”，这些属于不同维度。
+Determine the purpose before selecting a primary dimension: project/deliverable purpose for a project library, topic for a knowledge library, and business matter for financial records. Do not mix “Customer A,” “PDF,” “2026,” and “completed” as siblings; they represent different dimensions.
 
-用途未知时按 [个人场景](scenarios.md) 提供常用场景选择题和自由输入入口。用户明确选择无偏好时用 general 默认模板，保留有效结构，先用元数据与浏览视图查找；不按扩展名拆开项目。已有场景复用，混合库记录分支维度。
+When purpose is unknown, offer the choices and free-text option in [Personal scenarios](scenarios.md). If the user explicitly selects no preference, use the general template: preserve useful structure and start with metadata/browsing views. Do not split projects by extension. Reuse confirmed scenarios and record branch dimensions for mixed libraries.
 
-- 类别有稳定 ID、名称、目标相对路径、定义、包含和排除判例。
-- 同级使用一个划分维度，重叠时规定优先级或修订边界。
-- 一个已确认文件一个主要归属，跨主题用标签/关系，避免物理副本。
-- 文件进入正式类别或待确认队列；队列不证明业务分类已穷尽。
-- 按实际用途建立清楚的分支，不每次上传都新增分类；深度取决于规模和用户习惯。
-- 新类别先检查现有类别/同义词；taxonomy 版本变更后复核受影响文件，不移动人工锁定项。
+- Give each category a stable ID, label, target relative path, definition, and inclusion/exclusion examples.
+- Use one partition dimension among siblings. When boundaries overlap, set a precedence rule or revise them.
+- Give each confirmed file one primary category. Express cross-topic attributes with tags/relationships instead of physical copies.
+- Route every file to a confirmed category or a review queue. A queue does not prove that all business categories have been covered.
+- Create branches for real purposes; do not add a new category for every upload. Set depth based on volume and the user's habits.
+- Check existing categories and synonyms before adding a category. A taxonomy version change triggers review of affected files, but does not move user-locked items.
 
-报告覆盖数量、歧义文件、重叠类别、未覆盖主题和修订建议。命中规则与事实证据分别记录。
+Report coverage counts, ambiguous files, overlapping categories, uncovered topics, and revision proposals. Record rule matches separately from source evidence.
 
-## 分面标签
+## Faceted tags
 
-按需选 `project/topic/document_type/time/status/source`，不强制全选。同义词映射到稳定标签 ID，保留 alias。业务状态、解析状态、分类审核状态独立。
+Use facets such as project/topic/document_type/time/status/source as needed; do not require every facet. Map synonyms to stable tag IDs and retain aliases. Keep business state, parse state, and classification-review state independent.
 
-明确分开 document_type（合同/报告等）、format（PDF/DOCX等）和 resource_type（文本/数据集等）。公共词表按 [独立词表](vocabulary.md) 校验与修订；文件标注引用 active ID，不覆盖公共定义。时间未知不制造，业务阶段使用 lifecycle 而非从标签驱动操作。
+Separate document_type (business purpose such as contract/report), format (PDF/DOCX), and resource_type (text/dataset). Validate and revise governed vocabulary according to [Vocabulary governance](vocabulary.md). File annotations reference active IDs and do not overwrite public definitions. Do not invent unknown dates. Use lifecycle commands for business stages rather than driving operations from tags.
 
-日期来自原文或明确规则，不能从修改时间推断签约/发布时间。未知作者、日期和项目填 null。原文、标签都需有来源依据。
+Dates come from source content or an explicit rule; never infer contract or publication dates from modification time. Set unknown author/date/project values to null. Both source facts and tags need evidence.
 
-版本、格式变体、附件、引用和完全相同副本是不同关系。哈希一致只说明字节相同；近似文本不支持自动合并，名字“最终版”不证明版本最新。
+Versions, format variants, attachments, citations, and exact byte copies are distinct relationships. A matching hash proves identical bytes only. Similar text does not support automatic merging, and a “final” filename does not prove recency.
 
-## 精确重复项与保留策略
+## Exact duplicates and retention
 
-- 文件以完整 SHA-256 完全相同为依据；目录以完整相对路径、所有纳入文件的 SHA-256、子目录和空目录清单完全相同为依据。任何被排除或无法稳定读取的后代都使其父目录不能自动认定为完全重复。
-- 自动去重只在用户明确提出去重时运行。保留已有 `location_locked` 的用户位置；若一个重复组有多个锁定位置，跳过该组。否则按目录层级较浅、相对路径字典序稳定选择保留项。
-- 已确认版本组成员也属于保留优先项；同一精确重复组含多个已确认业务版本或锁定位置时只报告，不从字节相同推断可以去掉不同业务身份。没有受保护项时才使用稳定路径顺序。
-- 其他副本原子移动到 `.filedb/quarantine/<run-id>/` 并写日志，用户可恢复。隔离项从活动目录和检索索引排除，但不是删除；不自动清空、过期或合并。
-- 不处理相似文档、版本差异、扫描不完整的目录、链接/重解析点或存在冲突的用户锁定项。精确字节相同仍可能被用户在不同目录中有意复用，用户未提出去重时只报告。
+- Files qualify only when their complete SHA-256 hashes match. Directories qualify only when complete relative paths, all included file hashes, subdirectories, and empty-folder manifests match. An excluded or unstable descendant prevents its parent from being automatically declared a full duplicate.
+- Run automated deduplication only when the user explicitly asks for it. Prefer an existing user-locked location. Skip a group with multiple locked locations. Otherwise choose a stable keeper by shallower folder depth, then relative-path order.
+- Confirmed version-group members are also protected. If an exact-duplicate group contains multiple confirmed business versions or locked locations, report it; identical bytes do not prove that distinct business identities may be discarded. Use stable path ordering only when no protected item exists.
+- Atomically move other copies to .filedb/quarantine/<run-id>/ and log the move so the user can restore them. Quarantined items are excluded from the active library and search indexes, but are not deleted. Never auto-clear, expire, or merge quarantine.
+- Do not act on similar documents, differing versions, incomplete directory scans, links/reparse points, or conflicting user locks. Exact byte identity can still be an intentional reuse in different folders; report duplicates only unless the user asks to deduplicate.
 
-## 命名
+## Naming
 
-编号可帮助人排序和记忆，但不是 AI 必需条件。用户没有既定习惯时，建议大类采用稳定的两位编号＋名称（如 `10-项目交付`、`20-经营管理`、`30-研究资料`）；小类仅在需要固定顺序或兄弟目录较多时编号。不将所有文件编号，也不按排序位置频繁重新编号。详细适用范围、编号分配表、层级示例和 AI 定位规则见 [双人群导航](navigation.md)。
+Numbering can help people sort and remember folders, but AI does not require it. When the user has no existing convention, stable two-digit numbers plus readable names are suggested for top-level groups, e.g. 10-Project Delivery, 20-Operations, 30-Research. Number subcategories only when a fixed order or many siblings makes it useful. Do not number every file or frequently renumber folders for sorting. See [Navigation for people and AI](navigation.md) for scope, allocation, examples, and location rules.
 
-保留扩展名，简洁且有依据。按需要用 `2026-10-08_项目A_调研报告_v2.pdf`；日期或版本未知不制造。信息已存在清单，不将所有标签塞进名字。
+Keep the extension and use concise, evidence-based names. A name such as 2026-10-08_ProjectA_ResearchReport_v2.pdf may help when those values are known; do not invent dates or versions. Do not put every tag in the filename when metadata already records it.
 
-保存原名、原路径及所有路径变化。排除路径分隔符、控制字符和 Windows 非法字符/设备名/尾部空格或点。同名用短 ID 或用户约定后缀，不覆盖。
+Preserve original names, original paths, and all path changes. Reject path separators, control characters, Windows-invalid characters/device names, and trailing spaces or periods. For collisions, use a short ID or a user-approved suffix; never overwrite.
 
-大小写改名、互换名字、链式路径需分阶段计划；helper 拒绝直接执行。代码、媒体工程、内部链接和应用数据默认只索引，具体整理计划要考虑引用依赖，不自行改写内部内容。
+Case-only renames, name swaps, and chained paths need staged plans; the helper refuses to execute them directly. Software, media projects, internal links, and application data are index-only by default. Account for dependencies in any concrete plan and do not rewrite internal content.

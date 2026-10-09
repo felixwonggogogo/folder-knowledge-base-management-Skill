@@ -33,7 +33,7 @@ def make_payload(total=10000):
             "business_state_label": "未确认", "extraction_status": "text_cached", "extraction_label": "已提取文本",
             "summary": hostile if index == 0 else None, "legacy_note": None,
             "tags": [{"facet": "file_type", "id": ".txt", "label": "文本"}, {"facet": "topic", "id": "budget", "label": "预算"}],
-            "evidence": [], "read_coverage": "合成元数据，无正文", "issue_message": None, "location_locked": False})
+            "evidence": [], "read_coverage": "合成元数据，无正文", "issue_codes": [], "location_locked": False})
     return {"library_name": "浏览器性能合成库", "generated_at": "synthetic", "last_scanned_at": "synthetic",
         "catalog_revision": "synthetic-10k", "scope": {"truncated": False, "omitted_count": 0, "included_count": total, "includes_file_content": False},
         "stats": {"active_files": total, "directories": 10, "inherited": total, "semantic_reviewed": 0, "parsing_limited": 0},
@@ -82,7 +82,7 @@ def run():
         vocab["terms"][-1]["aliases"] = ["PROCUREMENT_COST"]
         policy.apply_policy(folderdb, library, "vocabulary", vocab, "synthetic alias after annotation", True, first_vocab["revision"])
         folderdb.build_index(library)
-        generated_page = library / "文件知识库.html"
+        generated_page = library / "file-knowledge-base.html"
         large_page = temp_root / "portal-10000.html"
         large_page.write_text(safe_html(template, make_payload()), encoding="utf-8")
         errors, requests = [], []
@@ -98,57 +98,65 @@ def run():
             page.on("request", lambda request: requests.append(request.url))
 
             page.goto(generated_page.as_uri(), wait_until="load")
-            if page.locator("#result-count").inner_text() != "5 项":
+            if page.locator("#result-count").inner_text() != "5 items":
                 raise AssertionError("Generated catalog page did not render all synthetic source files")
-            if "个人综合资料" not in page.locator("#scope-line").inner_text() or "词表版本：2" not in page.locator("#scope-line").inner_text():
+            if "General personal files (default)" not in page.locator("#scope-line").inner_text() or "Vocabulary revision: 2" not in page.locator("#scope-line").inner_text():
                 raise AssertionError("Scenario/vocabulary revision is missing")
+            page.locator("#language-switch").select_option("zh-CN")
+            if page.locator("#result-count").inner_text() != "5 项" or "文件详情" not in page.locator("#inspector").inner_text():
+                raise AssertionError("Chinese language switch did not translate the portal interface")
+            if "场景：个人综合资料（默认）" not in page.locator("#scope-line").inner_text():
+                raise AssertionError("The default scenario label did not switch to Chinese")
+            page.locator("#language-switch").select_option("en")
+            if page.locator("#result-count").inner_text() != "5 items" or "File details" not in page.locator("#inspector").inner_text():
+                raise AssertionError("English language switch did not restore the portal interface")
             page.locator("#q").fill("PROCUREMENT_COST")
-            if page.locator("#result-count").inner_text() != "1 项":
+            if page.locator("#result-count").inner_text() != "1 item":
                 raise AssertionError("Public alias did not find a historical annotation")
             page.locator("#q").fill("")
             page.locator("#topic-filter").select_option("budget")
             page.locator("#type-filter").select_option("合同与协议")
             page.locator("#format-filter").select_option(".txt")
-            if page.locator("#result-count").inner_text() != "1 项":
+            if page.locator("#result-count").inner_text() != "1 item":
                 raise AssertionError("Topic/document-type/format filters did not combine")
             page.locator("#topic-filter").select_option("")
             page.locator("#type-filter").select_option("")
             page.locator("#format-filter").select_option("")
             page.locator("#business-filter").select_option("archived")
-            if page.locator("#result-count").inner_text() != "1 项" or "已归档" not in page.locator("#inspector").inner_text():
+            if page.locator("#result-count").inner_text() != "1 item" or "Archived" not in page.locator("#inspector").inner_text():
                 raise AssertionError("Archived lifecycle filter or detail is incorrect")
             page.locator("#business-filter").select_option("")
             page.locator("#folder-child").select_option("10-项目")
-            if page.locator("#result-count").inner_text() != "2 项":
+            if page.locator("#result-count").inner_text() != "2 items":
                 raise AssertionError("Folder prefix collision included the sibling project")
             page.locator("#folder-child").select_option("10-项目/客户A")
             page.locator("#folder-scope").select_option("direct")
-            if page.locator("#result-count").inner_text() != "1 项":
+            if page.locator("#result-count").inner_text() != "1 item":
                 raise AssertionError("Direct folder mode did not exclude descendants")
-            if "文件 ID" not in page.locator("#inspector").inner_text():
+            if "File ID" not in page.locator("#inspector").inner_text():
                 raise AssertionError("Human details did not expose the stable file ID")
             if "v1" not in page.locator("#inspector").inner_text() or "2026-12-01" not in page.locator("#inspector").inner_text():
                 raise AssertionError("Human details omitted the declared version/review date")
             page.locator("#folder-scope").select_option("subtree")
-            if page.locator("#result-count").inner_text() != "2 项":
+            if page.locator("#result-count").inner_text() != "2 items":
                 raise AssertionError("Subtree folder mode omitted descendants")
             page.locator("#folder-child").select_option("10-项目/客户A/附件")
-            if page.locator("#result-count").inner_text() != "1 项":
+            if page.locator("#result-count").inner_text() != "1 item":
                 raise AssertionError("Third-level navigation did not isolate the attachment")
             page.locator("#breadcrumbs button").nth(1).click()
             page.locator("#folder-child").select_option("10-项目/客户B")
-            if page.locator("#result-count").inner_text() != "0 项":
+            if page.locator("#result-count").inner_text() != "0 items":
                 raise AssertionError("Empty directory navigation is incorrect")
             page.locator("#breadcrumbs button").first.click()
-            if page.locator("#result-count").inner_text() != "5 项":
+            if page.locator("#result-count").inner_text() != "5 items":
                 raise AssertionError("Breadcrumb root did not restore the complete scope")
             page.goto(large_page.as_uri(), wait_until="load")
-            if page.locator("#result-count").inner_text() != "10,000 项":
+            if page.locator("#result-count").inner_text() != "10,000 items":
                 raise AssertionError("The 10k page did not expose the complete result count")
             if page.locator("#file-rows tr").count() != 40:
                 raise AssertionError("The portal should render one bounded 40-row page")
             page.locator("#q").fill("needle-09999")
-            if page.locator("#result-count").inner_text() != "1 项":
+            if page.locator("#result-count").inner_text() != "1 item":
                 raise AssertionError("Search did not find the 10k sentinel record")
             if "needle-09999" not in page.locator("#file-rows").inner_text():
                 raise AssertionError("Search result path is not visible")
@@ -158,7 +166,7 @@ def run():
             if "needle-09999" not in page.locator("#inspector").inner_text():
                 raise AssertionError("Keyboard Enter did not open the selected record")
             page.locator("#inspector .copy-button").nth(1).click()
-            if "来源：资料/" not in page.locator("#inspector .copy-state").inner_text():
+            if "Source: 资料/" not in page.locator("#inspector .copy-state").inner_text():
                 raise AssertionError("Clipboard-unavailable path citation fallback did not appear")
             page.locator('[data-view="issues"]').click()
             if not page.locator("#issues").inner_text().strip():
@@ -173,8 +181,8 @@ def run():
             no_js = browser.new_context(java_script_enabled=False, viewport={"width": 390, "height": 844})
             static_page = no_js.new_page()
             static_page.goto(large_page.as_uri(), wait_until="load")
-            if "互动目录需要启用本地页面脚本" not in static_page.locator("noscript").inner_text():
-                raise AssertionError("No-script navigation fallback is missing")
+            if "Enable JavaScript" not in static_page.locator("noscript").inner_text() or "启用 JavaScript" not in static_page.locator("noscript").inner_text():
+                raise AssertionError("Bilingual no-script navigation fallback is missing")
             no_js.close()
             browser_version = browser.version
             browser.close()
