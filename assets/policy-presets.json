@@ -1,0 +1,34 @@
+{
+  "scenarios": {
+    "general": {"version":"1","id":"general","label":"个人综合资料（默认）","scope":"personal","purpose":"便于个人浏览、AI查找与后续维护；用途不明时保留有效结构","primary_dimension":"preserve_existing","facets":["resource_type","document_type","format","topic","project","source"],"preserve_existing":true,"branches":[],"example_queries":["找出有关某主题的资料","找到某项目的合同"],"numbering":"stable_top_level"},
+    "work": {"version":"1","id":"work","label":"项目工作资料","scope":"personal","purpose":"围绕个人正在完成的项目与成果定位资料","primary_dimension":"project","facets":["project","document_type","topic","format","source"],"preserve_existing":true,"branches":[],"example_queries":["项目A有哪些交付资料"],"numbering":"stable_top_level"},
+    "research": {"version":"1","id":"research","label":"研究资料","scope":"personal","purpose":"按研究问题与主题查找和比较证据","primary_dimension":"topic","facets":["topic","document_type","source","format"],"preserve_existing":true,"branches":[],"example_queries":["找到某研究问题的原始证据"],"numbering":"stable_top_level"},
+    "learning": {"version":"1","id":"learning","label":"学习资料","scope":"personal","purpose":"围绕学习目标、课程与知识主题定位资料","primary_dimension":"learning_goal","facets":["topic","document_type","source","format"],"preserve_existing":true,"branches":[],"example_queries":["找到课程A的笔记与教程"],"numbering":"stable_top_level"},
+    "personal": {"version":"1","id":"personal","label":"个人事务资料","scope":"personal","purpose":"围绕个人事务与持续责任管理材料","primary_dimension":"affair","facets":["document_type","topic","source","format"],"preserve_existing":true,"branches":[],"example_queries":["找到家庭事务的相关凭证"],"numbering":"stable_top_level"},
+    "custom": {"version":"1","id":"custom","label":"自定义场景","scope":"personal","purpose":"由用户填写目标用途后建立可执行边界","primary_dimension":"user_defined","facets":["document_type","topic","format"],"preserve_existing":true,"branches":[],"example_queries":[],"numbering":"preserve"}
+  },
+  "vocabulary": {
+    "version":"1",
+    "terms":[
+      {"facet":"resource_type","id":"text","label":"文本","aliases":["文字资料"],"definition":"主要由供阅读的文字组成；扫描文字仍可属于文本","broader":[],"related":[],"status":"active","replaced_by":null},
+      {"facet":"resource_type","id":"dataset","label":"数据集","aliases":[],"definition":"结构化编码的数据集合，不将所有表格文件直接判为数据集","broader":[],"related":[],"status":"active","replaced_by":null},
+      {"facet":"resource_type","id":"still-image","label":"静态图像","aliases":["图片"],"definition":"静态视觉表达；文字扫描件可另外记录文本类型","broader":[],"related":[],"status":"active","replaced_by":null},
+      {"facet":"resource_type","id":"moving-image","label":"动态图像","aliases":["视频"],"definition":"连续视觉表达形成运动效果","broader":[],"related":[],"status":"active","replaced_by":null},
+      {"facet":"resource_type","id":"sound","label":"声音","aliases":["音频"],"definition":"主要用于听取的资源","broader":[],"related":[],"status":"active","replaced_by":null},
+      {"facet":"resource_type","id":"software","label":"软件","aliases":[],"definition":"源代码或编译形式的程序；整体工程结构应保留","broader":[],"related":[],"status":"active","replaced_by":null},
+      {"facet":"resource_type","id":"collection","label":"资料集合","aliases":[],"definition":"一组资源的聚合；压缩格式本身不证明内容用途","broader":[],"related":[],"status":"active","replaced_by":null},
+      {"facet":"document_type","id":"contract","label":"合同与协议","aliases":["合同","协议"],"definition":"记录当事方约定的资料；不依据文件名确认生效状态","broader":[],"related":[],"status":"active","replaced_by":null},
+      {"facet":"document_type","id":"report","label":"报告","aliases":[],"definition":"描述调查、分析、进展或成果的资料","broader":[],"related":[],"status":"active","replaced_by":null},
+      {"facet":"document_type","id":"plan","label":"方案","aliases":[],"definition":"描述拟采取的行动、设计或实施安排的资料","broader":[],"related":[],"status":"active","replaced_by":null},
+      {"facet":"document_type","id":"note","label":"笔记","aliases":[],"definition":"个人摘录、理解或观察记录","broader":[],"related":[],"status":"active","replaced_by":null},
+      {"facet":"document_type","id":"tutorial","label":"教程","aliases":[],"definition":"说明如何学习或操作的资料","broader":[],"related":[],"status":"active","replaced_by":null},
+      {"facet":"document_type","id":"meeting-record","label":"会议记录","aliases":["会议纪要"],"definition":"记录会议讨论、决定或待办的资料","broader":[],"related":[],"status":"active","replaced_by":null},
+      {"facet":"document_type","id":"list","label":"清单","aliases":[],"definition":"按项列示对象或事项的资料","broader":[],"related":[],"status":"active","replaced_by":null},
+      {"facet":"format","id":"pdf","label":"PDF","aliases":[".pdf","application/pdf"],"definition":"PDF文件格式，不代表文档业务类型","broader":[],"related":[],"status":"active","replaced_by":null},
+      {"facet":"format","id":"docx","label":"DOCX","aliases":[".docx"],"definition":"Office Open XML文字文档格式","broader":[],"related":[],"status":"active","replaced_by":null},
+      {"facet":"format","id":"xlsx","label":"XLSX","aliases":[".xlsx"],"definition":"Office Open XML电子表格格式","broader":[],"related":[],"status":"active","replaced_by":null},
+      {"facet":"format","id":"markdown","label":"Markdown","aliases":[".md"],"definition":"Markdown文本格式","broader":[],"related":[],"status":"active","replaced_by":null},
+      {"facet":"format","id":"txt","label":"TXT","aliases":[".txt"],"definition":"纯文本文件格式；编码需要实际识别","broader":[],"related":[],"status":"active","replaced_by":null}
+    ]
+  }
+}

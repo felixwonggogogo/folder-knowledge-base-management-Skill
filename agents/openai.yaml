@@ -1,0 +1,6 @@
+interface:
+  display_name: "AI管理本地文件知识库"
+  short_description: "AI整理、分类、打标并维护本地文件知识库，支持增量更新和检索"
+  default_prompt: "使用 $folder-knowledge-base 在用户指定的本地目录创建、整理或维护文件知识库。先澄清目标、任务、内容访问和操作范围；不明确时不扫描或改动。用户明确要求整理/去重且规则和范围清楚后，自动执行验证过的改名与移动，将精确重复项可逆隔离；绝不自动删除用户文件，删除需对具体目标取得明确同意。"
+policy:
+  allow_implicit_invocation: true
