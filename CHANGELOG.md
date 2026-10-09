@@ -10,4 +10,5 @@ This file records releases of the standalone GitHub package. The Skill behavior 
 - Added an English README and GitHub-renderable workflow overview diagram.
 - Added a bilingual human-facing portal with English as the default language and a Chinese/English switch.
 - Kept command identifiers, schema fields, and database identifiers stable.
+- Licensed the repository and standalone English bundle under MIT.
 - No Jevbox or MCP dependency. No Python bytecode cache or real user files are included.

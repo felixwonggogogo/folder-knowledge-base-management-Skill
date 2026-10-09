@@ -54,12 +54,14 @@ The included scripts provide inventory, hashing, parsing where supported, duplic
 
 ~~~text
 .
+├── LICENSE
 ├── SKILL.md                    # Original Chinese Skill bundle
 ├── agents/                     # Chinese-bundle agent metadata
 ├── assets/
 ├── references/
 ├── scripts/
 ├── github-en/                  # Complete English installable Skill bundle
+│   ├── LICENSE
 │   ├── SKILL.md
 │   ├── agents/
 │   ├── assets/
@@ -75,6 +77,6 @@ The included scripts provide inventory, hashing, parsing where supported, duplic
 
 The validation history in github-en/references/validation.md describes the original Chinese v0.7.0 scripts and synthetic fixtures. It is not independent behavioral acceptance of the translated English bundle or of a real user's files. The English package is intended for the Codex Skills convention; other agent platforms may require packaging changes. Parser coverage depends on the local environment. There is no built-in OCR, semantic/vector search service, or always-on background updater.
 
-## License and public release
+## License and repository visibility
 
-This repository is currently a private prerelease. No standalone reuse license has been declared for this repository. Do not redistribute or make it public until the owner confirms the rights and adds a suitable LICENSE file. GitHub explains [how repository licensing works](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository).
+This repository and the standalone English Skill bundle are licensed under the MIT License. See [LICENSE](LICENSE); the English bundle includes a copy at [github-en/LICENSE](github-en/LICENSE) so the license accompanies that package. The GitHub repository is currently private; applying this license does not change its visibility.
